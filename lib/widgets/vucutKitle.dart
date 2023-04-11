@@ -21,13 +21,13 @@ class _vucutKitle extends State<vucutKitle> {
       setState(() {
         _bmiResult = bmi;
         if (bmi < 18.5) {
-          _bmiStatus = "Zayıf";
+          _bmiStatus = "Zayıf :(";
         } else if (bmi >= 18.5 && bmi < 25) {
-          _bmiStatus = "Normal";
+          _bmiStatus = "Normal :)";
         } else if (bmi >= 25 && bmi < 30) {
-          _bmiStatus = "Fazla Kilolu";
+          _bmiStatus = "Fazla Kilolu :|";
         } else {
-          _bmiStatus = "Obez";
+          _bmiStatus = "Obez  :o";
         }
       });
     }
