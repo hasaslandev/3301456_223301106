@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HeathNeeds extends StatelessWidget {
-  const HeathNeeds({Key? key}) : super(key: key);
+class Kategoriler extends StatelessWidget {
+  const Kategoriler({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<CustomIcon> customIcons = [
-      CustomIcon(icon: "assets/images/diyetisyen_1.jpg", name: "Diyetisyen"),
-      CustomIcon(icon: "assets/images/kalpcerah_2.jpg", name: "Kalp Cer."),
-      CustomIcon(icon: "assets/images/psikoloji_1.jpg", name: "Beyin Cer."),
-      CustomIcon(icon: "assets/images/beyincerrah_1.jpg", name: "Psikiyatri"),
-      CustomIcon(icon: "assets/images/psikoloji_2.jpg", name: "Psikoloji"),
-      CustomIcon(icon: "assets/images/denntist_1.jpg", name: "Damar Cer."),
+    List<IconList> iconList = [
+      IconList(icon: "assets/images/diyetisyen_1.jpg", ad: "Diyetisyen"),
+      IconList(icon: "assets/images/kalpcerah_2.jpg", ad: "Kalp Cer."),
+      IconList(icon: "assets/images/psikoloji_1.jpg", ad: "Beyin Cer."),
+      IconList(icon: "assets/images/beyincerrah_1.jpg", ad: "Psikiyatri"),
+      IconList(icon: "assets/images/psikoloji_2.jpg", ad: "Psikoloji"),
+      IconList(icon: "assets/images/denntist_1.jpg", ad: "Damar Cer."),
     ];
 
     return SizedBox(
@@ -22,7 +22,7 @@ class HeathNeeds extends StatelessWidget {
         separatorBuilder: (BuildContext context, int index) {
           return const SizedBox(width: 10);
         },
-        itemCount: customIcons.length,
+        itemCount: iconList.length,
         itemBuilder: (BuildContext context, int index) {
           return Column(
 
@@ -44,11 +44,11 @@ class HeathNeeds extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(customIcons[index].icon),
+                  child: Image.asset(iconList[index].icon),
                 ),
               ),
               const SizedBox(height: 7),
-              Text(customIcons[index].name),
+              Text(iconList[index].ad),
             ],
           );
         },
@@ -57,9 +57,9 @@ class HeathNeeds extends StatelessWidget {
   }
 }
 
-class CustomIcon {
+class IconList {
   final String icon;
-  final String name;
+  final String ad;
 
-  CustomIcon({required this.icon, required this.name});
+  IconList({required this.icon, required this.ad});
 }

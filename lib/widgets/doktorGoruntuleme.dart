@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:randevu/models/doctor_model.dart';
-import 'package:randevu/pages/doctorpage.dart';
+import 'package:randevu/models/doktorModel.dart';
+import 'package:randevu/pages/doktorDetay.dart';
 
 
-class NearbyDoctors extends StatelessWidget {
-  const NearbyDoctors({Key? key}) : super(key: key);
+class doktorGoruntuleme extends StatelessWidget {
+  const doktorGoruntuleme({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     yakinDoktorlar.sort((a, b) => b.toplamGoruntulenme.compareTo(a.toplamGoruntulenme));
-    //Görüntülenme sayısına göre sıraladım...
+
+
     return Column(
       children: List.generate(yakinDoktorlar.length, (index) {
         int yildizSayisi = 5;

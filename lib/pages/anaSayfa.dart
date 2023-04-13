@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:randevu/pages/profil.dart';
-import 'package:randevu/widgets/heath_needs.dart';
-import 'package:randevu/widgets/nearby_doctors.dart';
+import 'package:randevu/widgets/kategoriler.dart';
+import 'package:randevu/widgets/doktorGoruntuleme.dart';
 import 'package:randevu/pages/bildirimler.dart';
 import 'package:randevu/pages/teklif.dart';
 import 'package:randevu/widgets/vucutKitle.dart';
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,//back tuşunu kaldırma
-        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.4),
+        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.8),
         title: Container(
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.9),
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 20),
 
           Container(
-            child: const HeathNeeds(),
+            child: const Kategoriler(),
           ),
           const SizedBox(height: 20),
           Text(
@@ -130,11 +130,15 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 25),
           //Health Needs
-          const NearbyDoctors(),
+          const doktorGoruntuleme(),
           const SizedBox(height: 20),
           Text(
             "Size En Yakın En Popüler Doktorlar",
             style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Text(
+            "Burası Harita Alanı olacaktır",
+            style: Theme.of(context).textTheme.headlineLarge,
           ),
           const SizedBox(height: 15),
           //Harita

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:randevu/pages/home_page.dart';
+import 'package:randevu/pages/anaSayfa.dart';
 import 'package:randevu/pages/kaydol.dart';
 
 class Login extends StatefulWidget {

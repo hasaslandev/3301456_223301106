@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:randevu/models/isler_model.dart';
+import 'package:randevu/models/isModel.dart';
 
 class ilanGotuntulenme extends StatefulWidget {
   const ilanGotuntulenme({Key? key}) : super(key: key);
 
   @override
-  _JobListingScreenState createState() => _JobListingScreenState();
+  _ilanGotuntulenmeState createState() => _ilanGotuntulenmeState();
 }
 
-class _JobListingScreenState extends State<ilanGotuntulenme> {
+class _ilanGotuntulenmeState extends State<ilanGotuntulenme> {
 
   @override
   Widget build(BuildContext context) {

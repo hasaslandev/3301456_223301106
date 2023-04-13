@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:randevu/pages/home_page.dart';
+import 'package:randevu/pages/anaSayfa.dart';
 import 'package:randevu/pages/kaydol.dart';
 import 'package:randevu/pages/login.dart';
 import 'package:randevu/widgets/Guncelleme.dart';
 import 'package:randevu/pages/teklif.dart';
-import 'package:randevu/pages/doctorpage.dart';
+import 'package:randevu/pages/doktorDetay.dart';
 
 
 void main() {

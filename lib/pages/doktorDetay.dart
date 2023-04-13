@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 
 class DoktorDetay extends StatefulWidget {
-  //const DoktorDetay({Key? key}) : super(key: key);
+  const DoktorDetay({Key? key}) : super(key: key);
 
 
   @override
@@ -17,7 +17,7 @@ class _DoktorDetayState extends State<DoktorDetay> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            AboutDoctor(),
+            DoktorHakkinda(),
             DetailBody(),
           ],
         ),
@@ -25,7 +25,7 @@ class _DoktorDetayState extends State<DoktorDetay> {
     );
   }
 }
-class AboutDoctor extends StatelessWidget {
+class DoktorHakkinda extends StatelessWidget {
  // final DoktorModel doktorV;
  // const AboutDoctor({required this.doktorV});
   @override
@@ -96,6 +96,7 @@ class DetailBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const <Widget>[
           DoctorInfo(),
+          Text("Burası harita alanı olacaktır."),
         ],
       ),
     );
@@ -145,7 +146,6 @@ final String value;
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),)
-
         ],
       ),
     ))
