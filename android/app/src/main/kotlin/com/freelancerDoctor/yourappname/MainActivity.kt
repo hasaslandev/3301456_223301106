@@ -1,4 +1,4 @@
-package com.example.randevu
+package com.freelancerDoctor.yourappname
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -3,9 +3,7 @@ import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
 
 class Kaydol extends StatefulWidget {
-  const Kaydol({
-    Key? key,
-  }) : super(key: key);
+  const Kaydol({Key? key,}) : super(key: key);
 
   @override
   _DropDownListExampleState createState() => _DropDownListExampleState();

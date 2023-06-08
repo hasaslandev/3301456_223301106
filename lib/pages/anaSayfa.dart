@@ -18,7 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //HomePage({Key? key}) : super(key: key);
   String kullaniciAdi='';
   String sifre='';
   int _selectedIndex = 0;
@@ -39,11 +38,7 @@ class _HomePageState extends State<HomePage> {
         ).then((value) => setState(() {}));
         break;
       case 2:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) =>  const Teklif()),
-        );
-
+        Navigator.pushNamed(context, '/teklif');
         break;
       case 3:
         Navigator.push(

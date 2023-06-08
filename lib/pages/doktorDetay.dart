@@ -32,8 +32,8 @@ class DoktorHakkinda extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
       width: double.infinity,
-      child: Column(
-        children: const <Widget>[
+      child: const Column(
+        children: <Widget>[
           CircleAvatar(
             radius: 65.0,
             backgroundImage: AssetImage("assets/images/beyincerrah_1.jpg"),
@@ -92,9 +92,9 @@ class DetailBody extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.only(bottom: 30),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const <Widget>[
+        children: <Widget>[
           DoctorInfo(),
           Text("Burası harita alanı olacaktır."),
         ],
@@ -107,8 +107,8 @@ class DoctorInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: const <Widget>[
+    return const Row(
+      children: <Widget>[
         InfoCard(label: 'Tedavi Edilen Hasta Sayısı', value: '109'),
         SizedBox(width: 15,),
         InfoCard(label: 'Tecrübe Yılı', value: '10 Yıl'),

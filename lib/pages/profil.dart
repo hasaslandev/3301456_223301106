@@ -15,7 +15,7 @@ class _DoktorDetayState extends State<Profil> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Teklif Paneli"),
+        title: const Text("Profilim"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
