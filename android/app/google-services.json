@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "351542703277",
+    "project_id": "randevu-ae9eb",
+    "storage_bucket": "randevu-ae9eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351542703277:android:94228ead630ac655870224",
+        "android_client_info": {
+          "package_name": "com.freelancerDoctor.yourappname"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351542703277-5he8ta7bi7b3n5ajatpp546sqeenvj1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmG8V0wtuz1jgkYZ1I2kH79dX4PFVD08Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351542703277-5he8ta7bi7b3n5ajatpp546sqeenvj1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
