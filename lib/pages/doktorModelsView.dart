@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:randevu/models/doktorModel.dart';
 import 'package:randevu/models/side_drawer.dart';
 import 'package:randevu/pages/editDoctorModelsView.dart';
 
-class vucutKitle extends StatelessWidget {
+class DoktorModelsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final doktormodel = context.watch<List<DoktorModel>>();
@@ -21,7 +20,7 @@ class vucutKitle extends StatelessWidget {
         backgroundColor: Colors.blue,
         actions: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.add,
               size: 30.0,
             ),
@@ -72,4 +71,3 @@ class vucutKitle extends StatelessWidget {
     );
   }
 }
-

@@ -27,29 +27,29 @@ class Kategoriler extends StatelessWidget {
           return Column(
 
             children: [
-              Container(
-                width: 60,
-                height: 60,
-                padding: const EdgeInsets.all(15),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.teal,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.red,
-                      blurRadius: 4,
-                      spreadRadius: 2,
-                    ),
-                  ],
+                Container(
+                  width: 60,
+                  height: 60,
+                  padding: const EdgeInsets.all(15),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.teal,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.red,
+                        blurRadius: 4,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(iconList[index].icon),
+                  ),
                 ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(iconList[index].icon),
-                ),
-              ),
-              const SizedBox(height: 7),
-              Text(iconList[index].ad),
-            ],
+                const SizedBox(height: 7),
+                Text(iconList[index].ad),
+              ],
           );
         },
       ),

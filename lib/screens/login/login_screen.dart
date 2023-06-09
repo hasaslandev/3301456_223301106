@@ -10,10 +10,10 @@ class LoginScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         leading: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Builder(
             builder: (context) => IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu_rounded,
                 size: 40,
                 color: Colors.black,

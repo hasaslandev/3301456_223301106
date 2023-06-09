@@ -5,7 +5,6 @@ import 'package:randevu/screens/Signup/signup_screen.dart';
 import 'package:randevu/screens/Welcome/components/background.dart';
 import 'package:randevu/components/rounded_button.dart';
 import 'package:randevu/constants.dart';
-import 'package:randevu/screens/adminlogin/adminlogin_screen.dart';
 import 'package:randevu/screens/seotalep/seotalep_screen.dart';
 import 'package:randevu/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -89,21 +88,7 @@ class Body extends StatelessWidget {
                 );
               },
             ),
-            RoundedButton(
-              text: LocaleKeys.admin.tr(),
-              color: kPrimaryLightColor,
-              textColor: Colors.black,
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return AdminLoginScreen();
-                    },
-                  ),
-                );
-              },
-            ),
+
           ],
         ),
       ),

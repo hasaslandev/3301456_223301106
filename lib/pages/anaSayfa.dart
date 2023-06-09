@@ -38,7 +38,10 @@ class _HomePageState extends State<HomePage> {
         ).then((value) => setState(() {}));
         break;
       case 2:
-        Navigator.pushNamed(context, '/teklif');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>  const Teklif()),
+        );
         break;
       case 3:
         Navigator.push(
@@ -125,7 +128,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 25),
           //Health Needs
-          const doktorGoruntuleme(),
+           DoktorGoruntuleme(),
           const SizedBox(height: 20),
           Text(
             "Size En Yakın En Popüler Doktorlar",
@@ -150,7 +153,8 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Ionicons.home_sharp), label: "Ana Menü",),
       BottomNavigationBarItem(
               icon: Icon(Ionicons.list_circle), label: "Hasta Listesi"),
-          BottomNavigationBarItem(icon: Icon(Ionicons.paper_plane), label: "Teklif Sun"),
+          BottomNavigationBarItem(
+              icon: Icon(Ionicons.paper_plane), label: "Teklif Sun"),
           BottomNavigationBarItem(
               icon: Icon(Ionicons.person), label: "Profilim"),
         ],

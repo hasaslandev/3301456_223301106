@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:randevu/Screens/Welcome/components/body.dart';
-import 'package:provider/provider.dart';
 import 'package:randevu/models/side_drawer.dart';
-import 'package:randevu/screens/seotalep/seotalep_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,10 +13,10 @@ class WelcomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         leading: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Builder(
             builder: (context) => IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu_rounded,
                 size: 40,
                 color: Colors.black,

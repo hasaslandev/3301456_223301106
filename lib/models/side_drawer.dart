@@ -57,29 +57,14 @@ class _CustomSideDrawerState extends State<CustomSideDrawer> {
                   Navigator.popAndPushNamed(context, "adminlogin");
                   break;
                 case 5:
-                  drawer.setCurrentDrawer(5);
-                  Navigator.popAndPushNamed(context, "domainfirms");
+                  drawer.setCurrentDrawer(6);
+                  Navigator.popAndPushNamed(context, "dailydatas");
                   break;
                 case 6:
                   drawer.setCurrentDrawer(6);
-                  Navigator.popAndPushNamed(context, "hostings");
+                  Navigator.popAndPushNamed(context, "doktormodels");
                   break;
-                case 7:
-                  drawer.setCurrentDrawer(7);
-                  Navigator.popAndPushNamed(context, "adsenses");
-                  break;
-                case 8:
-                  drawer.setCurrentDrawer(8);
-                  Navigator.popAndPushNamed(context, "domains");
-                  break;
-                case 9:
-                  drawer.setCurrentDrawer(9);
-                  Navigator.popAndPushNamed(context, "dailydatas");
-                  break;
-                case 10:
-                  drawer.setCurrentDrawer(10);
-                  Navigator.popAndPushNamed(context, "settings");
-                  break;
+
               }
             },
             title: navigationItems[index].title,

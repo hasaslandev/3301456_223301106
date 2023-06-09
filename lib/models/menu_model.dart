@@ -14,12 +14,9 @@ List<NavigationModel> navigationItems = [
   NavigationModel(icon: Icons.person, title: "Login"),
   NavigationModel(icon: Icons.person, title: "SeoTalep"),
   NavigationModel(icon: Icons.person, title: "Admin Login"),
-  NavigationModel(icon: Icons.person, title: "DomainFirms"),
-  NavigationModel(icon: Icons.person, title: "Hostings"),
-  NavigationModel(icon: Icons.person, title: "Adsenses"),
-  NavigationModel(icon: Icons.person, title: "Domains"),
   NavigationModel(icon: Icons.person, title: "Daily Datas"),
-  NavigationModel(icon: Icons.person, title: "Settings"),
+  NavigationModel(icon: Icons.person, title: "DoktorModel"),
+
 
 ];
 

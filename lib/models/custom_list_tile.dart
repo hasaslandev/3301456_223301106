@@ -31,7 +31,7 @@ class _CustomListTileState extends State<CustomListTile> {
           children: [
             Icon(
               widget.icon,
-              color: widget.isSelected! ? Colors.pink : Colors.white,
+              color: widget.isSelected! ? Colors.yellow : Colors.white,
             ),
             SizedBox(width: 5),
             Text(widget.title!,
