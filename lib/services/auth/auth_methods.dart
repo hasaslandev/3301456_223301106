@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:randevu/screens/login/login_screen.dart';
 import 'package:randevu/screens/seotalep/seotalep_screen.dart';
 import 'package:randevu/services/general/general_methods.dart';
+
+import '../../Screens/doktorLogin/login_screen.dart';
 
 class FlutterFireAuthService {
   final FirebaseAuth _firebaseAuth;

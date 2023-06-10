@@ -95,8 +95,8 @@ class _MyHomePageState extends State<Login> {
               children: [
                 ElevatedButton(
                   onPressed: (){},
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.login),
                       SizedBox(width: 10),
                       Text('Google İle Giriş Yap'),

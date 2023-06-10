@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:randevu/Screens/Login/login_screen.dart';
+import 'package:randevu/Screens/doktorLogin/login_screen.dart';
 import 'package:randevu/Screens/Signup/components/background.dart';
 import 'package:randevu/Screens/Signup/components/or_divider.dart';
 import 'package:randevu/Screens/Signup/components/social_icon.dart';
@@ -23,15 +23,12 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               "SIGNUP",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: size.height * 0.03),
-            Image.asset(
-              "assets/images/risetime_logo.png",
-              height: size.height * 0.35,
-            ),
+
             RoundedInputField(
               hintText: "Your Name",
               onChanged: (value) {
@@ -71,23 +68,7 @@ class Body extends StatelessWidget {
               },
             ),
             OrDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SocalIcon(
-                  iconSrc: "assets/icons/facebook.svg",
-                  press: () {},
-                ),
-                SocalIcon(
-                  iconSrc: "assets/icons/twitter.svg",
-                  press: () {},
-                ),
-                SocalIcon(
-                  iconSrc: "assets/icons/google-plus.svg",
-                  press: () {},
-                ),
-              ],
-            )
+
           ],
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:randevu/screens/Login/login_screen.dart';
+import 'package:randevu/screens/doktorLogin/login_screen.dart';
 import 'package:randevu/screens/Signup/signup_screen.dart';
 import 'package:randevu/screens/Welcome/components/background.dart';
 import 'package:randevu/components/rounded_button.dart';

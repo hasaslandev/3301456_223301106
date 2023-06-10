@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:randevu/Screens/Login/components/background.dart';
+import 'package:randevu/Screens/doktorLogin/components/background.dart';
 import 'package:randevu/Screens/Signup/signup_screen.dart';
 import 'package:randevu/components/already_have_an_account_acheck.dart';
 import 'package:randevu/components/rounded_button.dart';

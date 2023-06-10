@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:randevu/models/doktorModel.dart';
 import 'package:randevu/models/side_drawer.dart';
-import 'package:randevu/pages/editDoctorModelsView.dart';
+import 'package:randevu/pages/editHastaModelsView.dart';
+
+import '../models/hastaModel.dart';
 
 class vucutKitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final doktormodel = context.watch<List<DoktorModel>>();
+    final hastamodel = context.watch<List<HastaModel>>();
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Doktor Models'),
+        title: Text('Hasta Models'),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.blue,
         actions: <Widget>[
@@ -26,7 +27,7 @@ class vucutKitle extends StatelessWidget {
               size: 30.0,
             ),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditDoctorModelView()));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditHastaModelView()));
             },
           )
         ],
@@ -47,11 +48,11 @@ class vucutKitle extends StatelessWidget {
       ),
       drawer: CustomSideDrawer(),
       body: ListView.builder(
-        itemCount: doktormodel.length,
+        itemCount: hastamodel.length,
         itemBuilder: (context, index) {
-          final isim = doktormodel[index].isim;
-          final pozisyon = doktormodel[index].pozisyon;
-          final resim = doktormodel[index].resim ?? '';
+          final isim = hastamodel[index].ad?? '';
+          final soyad = hastamodel[index].soyad ?? '';
+          final TC = hastamodel[index].TC ?? '';
 
           return ListTile(
             leading: const Icon(
@@ -60,11 +61,11 @@ class vucutKitle extends StatelessWidget {
               size: 36.0,
             ),
             title: Text(isim!),
-            subtitle: Text(pozisyon!),
-            trailing: Text(resim),
+            subtitle: Text(soyad!),
+            trailing: Text(TC!),
             isThreeLine: true,
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditDoctorModelView(doktormodel[index])));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditHastaModelView(hastamodel[index])));
             },
           );
         },

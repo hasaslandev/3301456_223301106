@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:randevu/Screens/Login/components/body.dart';
+import 'package:randevu/Screens/doktorLogin/components/body.dart';
 import 'package:randevu/models/side_drawer.dart';
 
 class LoginScreen extends StatelessWidget {

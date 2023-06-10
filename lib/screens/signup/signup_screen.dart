@@ -13,7 +13,7 @@ class SignUpScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: Builder(
             builder: (context) => IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu_rounded,
                 size: 40,
                 color: Colors.black,

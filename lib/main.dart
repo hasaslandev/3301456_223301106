@@ -1,22 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:randevu/Screens/Welcome/welcome_screen.dart';
 import 'package:randevu/constants.dart';
 import 'package:randevu/pages/anaSayfa.dart';
 import 'package:randevu/pages/dailydatasView.dart';
 import 'package:randevu/pages/doktorModelsView.dart';
+import 'package:randevu/pages/tasar%C4%B1m.dart';
 import 'package:randevu/providers/doktormodel_provider.dart';
-import 'package:randevu/screens/login/login_screen.dart';
+import 'package:randevu/providers/hastamodel_provider.dart';
 import 'package:randevu/screens/seotalep/seotalep_screen.dart';
 import 'package:randevu/screens/signup/signup_screen.dart';
 import 'package:randevu/services/auth/auth_methods.dart';
 import 'package:randevu/services/doctormodel/firestore_doctormodel_service.dart';
+import 'package:randevu/services/hastamodel/firestore_hastamodel_services.dart';
 import 'package:randevu/translations/codegen_loader.g.dart';
 import 'package:randevu/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:randevu/widgets/doktorGoruntuleme.dart';
+import 'Screens/doktorLogin/login_screen.dart';
 import 'firebase_options.dart';
 
 import 'notifiers/menu_notifier.dart';
@@ -61,6 +62,18 @@ class MyApp extends StatelessWidget {
           ),
 
           ChangeNotifierProvider(create: (context) => MenuDrawerNotifier()),
+
+
+
+          Provider<FirestoreHastamodelService>(
+            create: (_) => FirestoreHastamodelService(),
+          ),
+          ChangeNotifierProvider(create: (context) => HastaModelProvider()),
+          StreamProvider(
+            create: (context) =>
+                context.read<FirestoreHastamodelService>().getHastaModel(),
+            initialData: null,
+          ),
         ],
         child: MaterialApp(
           localizationsDelegates: context.localizationDelegates,
@@ -72,7 +85,7 @@ class MyApp extends StatelessWidget {
             primaryColor: kPrimaryColor,
             scaffoldBackgroundColor: Colors.white,
           ),
-          home: WelcomeScreen(),
+          home: DoctorLoginScreen(),
           routes: {
             "home": (_) => const HomePage(),
             "signup": (_) => SignUpScreen(),
