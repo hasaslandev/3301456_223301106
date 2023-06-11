@@ -1,374 +1,418 @@
-import 'package:drop_down_list/drop_down_list.dart';
-import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
-class Teklif extends StatefulWidget {
-  const Teklif({
-    Key? key,
-  }) : super(key: key);
+import 'package:randevu/api/CityApi.dart';
+import 'package:uuid/uuid.dart';
+import '../models/telifModel.dart';
+import 'dart:convert';
+import '../services/teklifmodel/firestore_teklifmodel_servis.dart';
 
+import 'package:http/http.dart' as http;
+
+
+class Teklif extends StatefulWidget {
   @override
-  _DropDownListExampleState createState() => _DropDownListExampleState();
+  _TeklifState createState() => _TeklifState();
 }
 
-class _DropDownListExampleState extends State<Teklif> {
+class _TeklifState extends State<Teklif> {
+  final FirestoreTeklifmodelService _firestoreService =
+  FirestoreTeklifmodelService();
+  String? _selectedCity;
 
-  double _currentSliderValue = 20;
-    bool isChecked = false;
-    bool isChecked1 = false;
-  final List<SelectedListItem> _listOfCities = [
-    SelectedListItem(
-      name: "Konya",
-      value: "TYO",
-      isSelected: false,
-    ),
-    SelectedListItem(
-      name: "İzmir",
-      value: "NY",
-      isSelected: false,
-    ),
-    SelectedListItem(
-      name: "Ankara",
-      value: "LDN",
-      isSelected: false,
-    ),
-    SelectedListItem(name: "Adıyaman"),
-    SelectedListItem(name: "Antalya"),
-    SelectedListItem(name: "Bilecik"),
-    SelectedListItem(name: "Şırnak"),
-    SelectedListItem(name: "Mersin"),
-    SelectedListItem(name: "Kahraman Maraş"),
-    SelectedListItem(name: "Hatay"),
-    SelectedListItem(name: "Aydın"),
-    SelectedListItem(name: "Çanakkale"),
-  ];
-  final List<SelectedListItem> _listOfHospital = [
-    SelectedListItem(
-      name: "Konya Numune Hastanesi",
-      value: "TYO",
-      isSelected: false,
-    ),
-    SelectedListItem(
-      name: "İzmir Balkaçık Hastanesi",
-      value: "NY",
-      isSelected: false,
-    ),
-    SelectedListItem(
-      name: "Ankara Ustal Beyaz Hastanesi",
-      value: "LDN",
-      isSelected: false,
-    ),
-    SelectedListItem(name: "Adıyaman Merkez Hastanesi"),
-    SelectedListItem(name: "Antalya Merkez Hastanesi"),
-    SelectedListItem(name: "Bilecik Merkez Hastanesi"),
-    SelectedListItem(name: "Şırnak Merkez Hastanesi"),
-    SelectedListItem(name: "Mersin Merkez Hastanesi"),
-    SelectedListItem(name: "Kahraman Maraş Merkez Hastanesi"),
-    SelectedListItem(name: "Hatay Merkez Hastanesi"),
-    SelectedListItem(name: "Aydın Merkez Hastanesi"),
-    SelectedListItem(name: "Çanakkale Merkez Hastanesi"),
+
+  List<String> _listOfCities = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getCitiesFromAPI();
+  }
+  Future<Map<String,dynamic>> fetchHastaneler() async {
+    Map<String, List<String>> hastaneler = {};
+
+    try {
+      http.Response response = await http.get(Uri.parse('https://data.ibb.gov.tr/tr/api/3/action/datastore_search_sql?sql=SELECT "ILCE_UAVT", "ILCE_ADI", "ADI" FROM "f2154883-68e3-41dc-b2be-a6c2eb721c9e" WHERE "ILCE_ADI" = \'$_selectedCity\''));
+
+      if (response.statusCode == 200) {
+        print(response.body);
+      } else {
+        throw Exception('API isteği başarısız oldu. Hata kodu: ${response.statusCode}');
+      }
+    } catch (error) {
+      throw Exception('API isteği başarısız oldu. Hata: $error');
+    }
+
+    return hastaneler;
+  }
+
+  void getCitiesFromAPI() async {
+    try {
+      List<String> cities = await fetchIlceAdlari();
+
+      // Convert city names to UTF-8 encoding
+      List<String> utf8Cities = cities.map((city) => utf8.decode(city.runes.toList())).toList();
+
+      setState(() {
+        _listOfCities = utf8Cities;
+      });
+    } catch (error) {
+      print('API isteği başarısız oldu. Hata: $error');
+    }
+  }
+
+  final List<String> _listOfHospital = [
+    "Hastane 1",
+    "Hastane 2",
+    "Hastane 3",
+    "Hastane 4",
+    "Hastane 5",
   ];
 
-  final TextEditingController _fullNameTextEditingController =
-      TextEditingController();
-  final TextEditingController _emailTextEditingController =
-      TextEditingController();
-  final TextEditingController _phoneNumberTextEditingController =
-      TextEditingController();
-  final TextEditingController _cityTextEditingController =
-      TextEditingController();
-  final TextEditingController _passwordTextEditingController =
-      TextEditingController();
+  final List<String> _listOfDiseases = [
+    "Hastalık 1",
+    "Hastalık 2",
+    "Hastalık 3",
+    "Hastalık 4",
+    "Hastalık 5",
+  ];
 
-  final TextEditingController _textEditingController = TextEditingController();
+  String? _selectedHospital;
+  String? _selectedDisease;
+  bool _isMale = true;
+
+  TextEditingController _adSoyadController = TextEditingController();
+  TextEditingController _iletisimController = TextEditingController();
+  TextEditingController _fiyatController = TextEditingController();
+  TextEditingController _hastalikController = TextEditingController();
+
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
+    _adSoyadController.dispose();
+    _iletisimController.dispose();
+    _fiyatController.dispose();
+    _hastalikController.dispose();
     super.dispose();
-    _fullNameTextEditingController.dispose();
-    _emailTextEditingController.dispose();
-    _phoneNumberTextEditingController.dispose();
-    _cityTextEditingController.dispose();
-    _passwordTextEditingController.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Teklif Paneli"),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        title: Text("Teklif Formu"),
       ),
-      body: SafeArea(
-        child: _mainBody(),
-      ),
-    );
-  }
-
-  Widget _mainBody() {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.blue;
-      }
-      return Colors.red;
-    }
-    return ListView(
-      padding: const EdgeInsets.all(12.0),
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: EdgeInsets.all(16.0),
           children: [
-            Column(
-              children: const [
-                SizedBox(
-                  height: 30.0,
-                ),
-              ],
-            ),
-            const Text(
-              "Teklif Paneli",
+            Text(
+              "Kişisel Bilgiler",
               style: TextStyle(
-                fontSize: 34.0,
                 fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
-            const SizedBox(
-              height: 15.0,
+            SizedBox(height: 8.0),
+            TextFormField(
+              controller: _adSoyadController,
+              decoration: InputDecoration(
+                labelText: "Ad Soyad",
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Lütfen ad soyad girin.";
+                }
+                return null;
+              },
             ),
-           AppTextField(
-              textEditingController: _fullNameTextEditingController,
-              title: "Hasta Adı Soyadı",
-              hint: "Hasta Adı Soyadını Giriniz",
-              isCitySelected: false,
+            SizedBox(height: 8.0),
+            TextFormField(
+              controller: _iletisimController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: "Telefon",
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Lütfen telefon girin.";
+                }
+                return null;
+              },
             ),
-            AppTextField(
-              textEditingController: _cityTextEditingController,
-              title: "Hastanın Kaldığı Hastane",
-              hint: "Hastane Seçiniz",
-              isCitySelected: true,
-              cities: _listOfHospital,
+            SizedBox(height: 8.0),
+            TextFormField(
+              controller: _fiyatController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                labelText: "Fiyat",
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Lütfen Fiyat girin.";
+                }
+                return null;
+              },
             ),
-            AppTextField(
-              textEditingController: _phoneNumberTextEditingController,
-              title: "İletişim",
-              hint: "İletişim Adresinizi Giriniz",
-              isCitySelected: false,
+            SizedBox(height: 16.0),
+            Text(
+              "Şehir",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
-            AppTextField(
-              textEditingController: _cityTextEditingController,
-              title: "Şehir",
-              hint: "Şehirinizi Seçiniz",
-              isCitySelected: true,
-              cities: _listOfCities,
+            SizedBox(height: 8.0),
+            //...
+
+            DropdownButtonFormField<String>(
+              value: _selectedCity,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedCity = newValue;
+                });
+                fetchHastaneler();
+              },
+              items: _listOfCities.map((String city) {
+                return DropdownMenuItem<String>(
+                  value: city,
+                  child: Text(city),
+                );
+              }).toList(),
+              //...
             ),
-               AppTextField(
-              textEditingController: _passwordTextEditingController,
-              title: "Hastanın Hastalığını Seçiniz",
-                 isCitySelected: true,
-              hint: "Hastalık Giriniz", cities: _listOfCities,
+
+//...
+
+
+            SizedBox(height: 16.0),
+            Text(
+              "Hastane",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
-            const SizedBox(height: 5),
-            const SizedBox(
-              height: 15.0,
+            SizedBox(height: 8.0),
+            DropdownButtonFormField<String>(
+              value: _selectedHospital,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedHospital = newValue;
+                });
+              },
+              items: _listOfHospital.map((String hospital) {
+                return DropdownMenuItem<String>(
+                  value: hospital,
+                  child: Text(hospital),
+                );
+              }).toList(),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Lütfen hastane seçin.";
+                }
+                return null;
+              },
             ),
-            Column(
-              children: [
-                Text("Öngördüğünüz Fiyatı Belirleyiniz"),
-                Slider(
-                  value: _currentSliderValue,
-                  max: 100000,
-                  divisions: 1000,
-                  label: _currentSliderValue.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _currentSliderValue = value;
-                    });
-                  },
-                ),
-              ],
+            SizedBox(height: 16.0),
+            Text(
+              "Hastalık",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
             ),
+            SizedBox(height: 8.0),
+            DropdownButtonFormField<String>(
+              value: _selectedDisease,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedDisease = newValue;
+                });
+              },
+              items: _listOfDiseases.map((String disease) {
+                return DropdownMenuItem<String>(
+                  value: disease,
+                  child: Text(disease),
+                );
+              }).toList(),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Lütfen hastalık seçin.";
+                }
+                return null;
+              },
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              "Cinsiyet",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(height: 8.0),
             Row(
               children: [
-                Row(
-                children: [
-                  Text("Kadın:"),
-                  Checkbox(
-                  checkColor: Colors.white,
-                  fillColor: MaterialStateProperty.resolveWith(getColor),
-                  value: isChecked,
-                  onChanged: (bool? value) {
-                    if(isChecked1==true){
-                      return null;
-                    }
-                    setState(() {
-                      isChecked = value!;
-                    });
-                  },
+                Expanded(
+                  child: RadioListTile(
+                    title: Text("Erkek"),
+                    value: true,
+                    groupValue: _isMale,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isMale = value!;
+                      });
+                    },
+                  ),
                 ),
-                  ],
+                Expanded(
+                  child: RadioListTile(
+                    title: Text("Kadın"),
+                    value: false,
+                    groupValue: _isMale,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isMale = value!;
+                      });
+                    },
+                  ),
                 ),
-                Row(
-                  children: [
-                    Text("Erkek:"),
-                    Checkbox(
-                      checkColor: Colors.white,
-                      fillColor: MaterialStateProperty.resolveWith(getColor),
-                      value: isChecked1,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          if(isChecked==true){
-                            return null;
-                          }
-                          isChecked1 = value!;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-
               ],
             ),
-            _AppElevatedButton(),
-            SizedBox(height: 20),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                _saveTeklifModel();
+              },
+              child: Text("Gönder"),
+            ),
           ],
         ),
-      ],
-    );
-  }
-}
-
-class AppTextField extends StatefulWidget {
-  final TextEditingController textEditingController;
-  final String title;
-  final String hint;
-  final bool isCitySelected;
-  final List<SelectedListItem>? cities;
-
-  const AppTextField({
-    required this.textEditingController,
-    required this.title,
-    required this.hint,
-    required this.isCitySelected,
-    this.cities,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _AppTextFieldState createState() => _AppTextFieldState();
-}
-
-class _AppTextFieldState extends State<AppTextField> {
-  final TextEditingController _searchTextEditingController =
-      TextEditingController();
-
-  void onTextFieldTap() {
-    DropDownState(
-      DropDown(
-        bottomSheetTitle: const Text(
-          "Şehirler",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20.0,
-          ),
-        ),
-        submitButtonChild: const Text(
-          'Onayla',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        data: widget.cities ?? [],
-        selectedItems: (List<dynamic> selectedList) {
-          List<String> list = [];
-          for (var item in selectedList) {
-            if (item is SelectedListItem) {
-              list.add(item.name);
-            }
-          }
-          showSnackBar(list.toString());
-        },
-        enableMultipleSelection: true,
-      ),
-    ).showModal(context);
-  }
-
-  void showSnackBar(String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(widget.title),
-        const SizedBox(
-          height: 5.0,
-        ),
-        TextFormField(
-          controller: widget.textEditingController,
-          cursorColor: Colors.black,
-          onTap: widget.isCitySelected
-              ? () {
-                  FocusScope.of(context).unfocus();
-                  onTextFieldTap();
-                }
-              : null,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.black12,
-            contentPadding:
-                const EdgeInsets.only(left: 8, bottom: 0, top: 0, right: 15),
-            hintText: widget.hint,
-            border: const OutlineInputBorder(
-              borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(8.0),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 15.0,
-        ),
-      ],
-    );
-  }
-}
-
-class _AppElevatedButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 60.0,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          primary: const Color.fromRGBO(00, 06, 00, 01),
-          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        child: const Text(
-          "Ilan Ver",
-          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal),
-        ),
       ),
     );
   }
+
+  void _saveTeklifModel() async {
+    if (_selectedCity != null && _selectedHospital != null) {
+      String phoneNumber = _iletisimController.text;
+
+      if (phoneNumber.length != 11) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Hata'),
+              content: Text('Telefon numarası 11 haneli olmalıdır.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Tamam'),
+                ),
+              ],
+            );
+          },
+        );
+        return;
+      }
+
+      // Check if the phone number already exists in the database
+      bool phoneNumberExists = await _firestoreService.checkPhoneNumberExists(phoneNumber);
+      if (phoneNumberExists) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Hata'),
+              content: Text('Bu telefon numarasıyla daha önce bir teklif eklenmiştir.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Tamam'),
+                ),
+              ],
+            );
+          },
+        );
+        return;
+      }
+
+      // Generate a unique ID for the teklifModel
+      String teklifId = Uuid().v4();
+
+      // Create a new instance of TeklifModel
+      TeklifModel teklifModel = TeklifModel(
+        teklifId: teklifId,
+        adSoyad: _adSoyadController.text,
+        hastane: _selectedHospital!,
+        iletisim: phoneNumber,
+        sehir: _selectedCity!,
+        hastalik: _hastalikController.text,
+        fiyat: int.parse(_fiyatController.text),
+        isErkek: true,
+      );
+
+      // Save the teklifModel using FirestoreTeklifmodelService
+      _firestoreService.saveTeklifModel(teklifModel).then((_) {
+        // Successful save operation
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Başarılı'),
+              content: Text('Teklif başarıyla eklendi.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Tamam'),
+                ),
+              ],
+            );
+          },
+        );
+      }).catchError((error) {
+        // Error occurred during save operation
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Hata'),
+              content: Text('Teklif eklenirken bir hata oluştu: $error'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Tamam'),
+                ),
+              ],
+            );
+          },
+        );
+      });
+    }
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: Teklif(),
+  ));
 }

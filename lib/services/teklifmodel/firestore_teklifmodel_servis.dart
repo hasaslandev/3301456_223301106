@@ -21,4 +21,19 @@ class FirestoreTeklifmodelService {
   Future<void> removeTeklifModel(String id) {
     return _db.collection('teklifModel').doc(id).delete();
   }
+
+  Future<bool> checkPhoneNumberExists(String phoneNumber) async {
+    try {
+      final querySnapshot = await _db
+          .collection('teklifModel')
+          .where('iletisim', isEqualTo: phoneNumber)
+          .get();
+
+      return querySnapshot.docs.isNotEmpty;
+    } catch (e) {
+      throw Exception('Telefon numarası kontrolünde bir hata oluştu: $e');
+    }
+  }
+
+
 }

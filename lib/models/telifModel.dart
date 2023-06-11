@@ -27,7 +27,7 @@ class TeklifModel {
   }
 
   TeklifModel.fromFirestore(Map<String, dynamic> firestore)
-      : teklifId = firestore['KategoriId'],
+      : teklifId = firestore['teklifId'],
         adSoyad = firestore['adSoyad'],
         hastane = firestore['hastane'],
         iletisim = firestore['iletisim'],
