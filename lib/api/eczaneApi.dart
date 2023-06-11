@@ -77,16 +77,15 @@ class Result {
   }
 }
 
-void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class EczaneApi extends StatefulWidget {
+  EczaneApi({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<EczaneApi> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<EczaneApi> {
   late Future<Eczane> futureEczane;
 
   @override

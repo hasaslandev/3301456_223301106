@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  const Teklif()),
+          MaterialPageRoute(builder: (context) =>   Teklif()),
         );
         break;
       case 3:

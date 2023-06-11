@@ -69,9 +69,9 @@ class Body extends StatelessWidget {
             RoundedButton(
               text: "SEND SEO REQUEST",
               press: () {
-                context
+               /* context
                     .read<FlutterFireAuthService>()
-                    .createAccount(user_name, user_email, user_password);
+                    .createAccount(user_name, user_email, user_password);*/
               },
             ),
             RoundedButton(

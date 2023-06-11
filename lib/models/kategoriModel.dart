@@ -10,8 +10,6 @@ class KategoriModel {
     return {
       'KategoriId': KategoriId,
       'KategoriAdi': KategoriAdi,
-
-
     };
   }
 

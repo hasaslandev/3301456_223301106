@@ -1,8 +1,8 @@
-class DoktorModel {
+class BildirimModel {
   final String? BildirimId;
   final String? TC;
   final bool? okundu;
-  DoktorModel(
+  BildirimModel(
       {
         this.BildirimId,this.TC,this.okundu
       });
@@ -16,7 +16,7 @@ class DoktorModel {
     };
   }
 
-  DoktorModel.fromFirestore(Map<String, dynamic> firestore)
+  BildirimModel.fromFirestore(Map<String, dynamic> firestore)
       : BildirimId = firestore['BildirimId'],
         TC = firestore['TC'],
         okundu = firestore['okundu'];

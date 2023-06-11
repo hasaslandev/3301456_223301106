@@ -5,6 +5,7 @@ import 'package:randevu/screens/seotalep/seotalep_screen.dart';
 import 'package:randevu/services/general/general_methods.dart';
 
 import '../../Screens/doktorLogin/login_screen.dart';
+import '../../models/doktorModel.dart';
 
 class FlutterFireAuthService {
   final FirebaseAuth _firebaseAuth;
@@ -14,24 +15,37 @@ class FlutterFireAuthService {
   Stream<User?> get authStateChanges => _firebaseAuth.idTokenChanges();
 
   Future<User?> createAccount(
-      String name, String email, String password) async {
+      String name, String email, String password,
+      String position,int stars,int views,String image,
+      String shortDesc,String longDesc
+
+      ) async {
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
     try {
       User? user = (await _firebaseAuth.createUserWithEmailAndPassword(
-              email: email, password: password))
+        email: email,
+        password: password,
+      ))
           .user;
 
       if (user != null) {
-        await _firestore
-            .collection('users')
-            .doc(_firebaseAuth.currentUser?.uid)
-            .set({
-          "user_id": _firebaseAuth.currentUser?.uid,
-          "user_name": name,
-          "user_email": email,
-          "user_password": password,
-        });
+        DoktorModel doktor = DoktorModel(
+          doctorId: user.uid,
+          isim: name,
+          email: email,
+          sifre: password,
+          pozisyon: position,
+          yildiz: stars,
+          toplamGoruntulenme: views,
+          resim: image,
+          bKisaAciklama: shortDesc,
+          bUzunAciklama: longDesc
+        );
+
+        await _firestore.collection('doktorModel').doc(user.uid).set(
+          doktor.toMap(),
+        );
 
         return user;
       } else {
@@ -46,7 +60,9 @@ class FlutterFireAuthService {
       String email, String password, BuildContext context) async {
     try {
       User? user = (await _firebaseAuth.signInWithEmailAndPassword(
-              email: email, password: password))
+        email: email,
+        password: password,
+      ))
           .user;
 
       if (user != null) {
