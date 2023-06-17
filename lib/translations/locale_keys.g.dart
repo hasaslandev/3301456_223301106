@@ -6,5 +6,7 @@ abstract class  LocaleKeys {
   static const login = 'login';
   static const singup = 'singup';
   static const admin = 'admin';
+  static const sicklogin = 'sicklogin';
+  static const sicksingup = 'sicksingup';
 
 }

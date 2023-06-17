@@ -24,7 +24,7 @@ class SignUpScreen extends StatelessWidget {
           ),
         ),
       ),
-      drawer: CustomSideDrawer(),
+
       body: Body(),
     );
   }

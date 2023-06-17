@@ -44,7 +44,7 @@ class DoktorModelsView extends StatelessWidget {
           ),
         ),
       ),
-      drawer: CustomSideDrawer(),
+
       body: ListView.builder(
         itemCount: doktormodel.length,
         itemBuilder: (context, index) {

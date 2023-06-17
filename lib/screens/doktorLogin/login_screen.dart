@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:randevu/Screens/doktorLogin/components/body.dart';
 import 'package:randevu/models/side_drawer.dart';
 
-class LoginScreen extends StatelessWidget {
+class DoktorLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
-      drawer: CustomSideDrawer(),
+
       body: Body(),
     );
   }

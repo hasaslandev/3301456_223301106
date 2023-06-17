@@ -37,7 +37,7 @@ class _DailyDatasViewState extends State<DailyDatasView> {
           ),
         ),
       ),
-      drawer: CustomSideDrawer(),
+
       body: Stack(
         children: <Widget>[
           AspectRatio(

@@ -15,17 +15,22 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> en_US = {
-  "appname": "RiseTime Co.",
+  "appname": "Freelancer Hospital Applications",
   "welcome": "Welcome",
-  "login": "Login",
-  "singup": "Sign Up",
-  "admin": "Yönetici"
+  "login": "Doctor Login",
+  "singup": "Doctor Sign Up",
+  "admin": "Yönetici",
+  "sicklogin": "Sick Login",
+  "sicksingup": "Sick singup",
+
 };
 static const Map<String,dynamic> tr_TR = {
-  "appname": "RiseTime A.Ş",
+  "appname": "Serbest Çalışan Hastane Uygulaması",
   "welcome": "Hoşgeldiniz",
-  "login": "Giriş",
-  "singup": "Kayıt Ol"
+  "login": "Doktor Giriş",
+  "singup": "Doktor Kayıt",
+  "sicklogin": "Hasta Giriş",
+  "sicksingup": "Hasta Kayıt"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en_US": en_US, "tr_TR": tr_TR};
 }

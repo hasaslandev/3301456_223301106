@@ -46,7 +46,7 @@ class vucutKitle extends StatelessWidget {
           ),
         ),
       ),
-      drawer: CustomSideDrawer(),
+
       body: ListView.builder(
         itemCount: hastamodel.length,
         itemBuilder: (context, index) {

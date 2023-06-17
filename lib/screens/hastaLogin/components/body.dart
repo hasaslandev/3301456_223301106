@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:randevu/Screens/doktorLogin/components/background.dart';
-import 'package:randevu/Screens/Signup/signup_screen.dart';
 import 'package:randevu/components/already_have_an_account_acheck.dart';
 import 'package:randevu/components/rounded_button.dart';
 import 'package:randevu/components/rounded_input_field.dart';
 import 'package:randevu/components/rounded_password_field.dart';
-import 'package:randevu/screens/signup/signup_screen.dart';
 import 'package:randevu/services/auth/auth_methods.dart';
 import 'package:provider/provider.dart';
+
+import '../../Signup/components/background.dart';
 
 
 class Body extends StatelessWidget {
@@ -23,7 +22,7 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "DOKTOR LOGIN",
+              "Hasta LOGIN",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: size.height * 0.03),
@@ -44,7 +43,7 @@ class Body extends StatelessWidget {
               },
             ),
             RoundedButton(
-              text: "DOKTOR LOGIN",
+              text: "Hasta LOGIN",
               press: () {
                 context
                     .read<FlutterFireAuthService>()

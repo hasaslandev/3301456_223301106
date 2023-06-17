@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
 import 'package:randevu/pages/profil.dart';
+import 'package:randevu/services/auth/auth_methods.dart';
 import 'package:randevu/widgets/kategoriler.dart';
 import 'package:randevu/widgets/doktorGoruntuleme.dart';
 import 'package:randevu/pages/bildirimler.dart';
@@ -95,7 +97,9 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             onPressed: () {
-              Navigator.popUntil(context, ModalRoute.withName('/'));
+              context
+                  .read<FlutterFireAuthService>()
+                  .logOut(context);
             },
             icon: const Icon(Ionicons.log_out_outline),
           ),          IconButton(

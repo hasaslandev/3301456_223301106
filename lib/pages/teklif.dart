@@ -20,29 +20,37 @@ class _TeklifState extends State<Teklif> {
 
 
   List<String> _listOfCities = [];
-
+  List<String> _listOfHospital = [];
   @override
   void initState() {
     super.initState();
     getCitiesFromAPI();
   }
-  Future<Map<String,dynamic>> fetchHastaneler() async {
-    Map<String, List<String>> hastaneler = {};
-
+  Future<void> fetchHastaneler() async {
     try {
-      http.Response response = await http.get(Uri.parse('https://data.ibb.gov.tr/tr/api/3/action/datastore_search_sql?sql=SELECT "ILCE_UAVT", "ILCE_ADI", "ADI" FROM "f2154883-68e3-41dc-b2be-a6c2eb721c9e" WHERE "ILCE_ADI" = \'$_selectedCity\''));
+      http.Response response = await http.get(Uri.parse(
+          'https://data.ibb.gov.tr/tr/api/3/action/datastore_search_sql?sql=SELECT "ILCE_UAVT", "ILCE_ADI", "ADI" FROM "f2154883-68e3-41dc-b2be-a6c2eb721c9e" WHERE "ILCE_ADI" = \'$_selectedCity\''
+      ));
 
       if (response.statusCode == 200) {
-        print(response.body);
+        Map<String, dynamic> data = jsonDecode(response.body);
+        List<dynamic> records = data['result']['records'];
+
+        List<String> hospitals = records.map((record) => record['ADI'].toString()).toList();
+
+        setState(() {
+          _listOfHospital = hospitals;
+          _selectedHospital = hospitals.isNotEmpty ? hospitals[0] : null; // Güncellenen kod
+        });
       } else {
         throw Exception('API isteği başarısız oldu. Hata kodu: ${response.statusCode}');
       }
     } catch (error) {
       throw Exception('API isteği başarısız oldu. Hata: $error');
     }
-
-    return hastaneler;
   }
+
+
 
   void getCitiesFromAPI() async {
     try {
@@ -59,13 +67,7 @@ class _TeklifState extends State<Teklif> {
     }
   }
 
-  final List<String> _listOfHospital = [
-    "Hastane 1",
-    "Hastane 2",
-    "Hastane 3",
-    "Hastane 4",
-    "Hastane 5",
-  ];
+
 
   final List<String> _listOfDiseases = [
     "Hastalık 1",

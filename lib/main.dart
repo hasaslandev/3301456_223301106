@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:randevu/Screens/Welcome/welcome_screen.dart';
 import 'package:randevu/api/eczaneApi.dart';
 import 'package:randevu/constants.dart';
 import 'package:randevu/pages/anaSayfa.dart';
 import 'package:randevu/pages/dailydatasView.dart';
 import 'package:randevu/pages/doktorModelsView.dart';
-import 'package:randevu/pages/tasar%C4%B1m.dart';
+import 'package:randevu/pages/tasarim.dart';
 import 'package:randevu/providers/doktormodel_provider.dart';
 import 'package:randevu/providers/hastamodel_provider.dart';
+import 'package:randevu/screens/hastaLogin/hasta_login_screen.dart';
 import 'package:randevu/screens/seotalep/seotalep_screen.dart';
 import 'package:randevu/screens/signup/signup_screen.dart';
 import 'package:randevu/services/auth/auth_methods.dart';
@@ -19,10 +19,9 @@ import 'package:randevu/translations/codegen_loader.g.dart';
 import 'package:randevu/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Screens/doktorLogin/login_screen.dart';
 import 'firebase_options.dart';
+import 'screens/doktorLogin/login_screen.dart';
 
-import 'notifiers/menu_notifier.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,7 +62,7 @@ class MyApp extends StatelessWidget {
             initialData: null,
           ),
 
-          ChangeNotifierProvider(create: (context) => MenuDrawerNotifier()),
+         // ChangeNotifierProvider(create: (context) => MenuDrawerNotifier()),
 
 
 
@@ -91,7 +90,7 @@ class MyApp extends StatelessWidget {
           routes: {
             "home": (_) => const HomePage(),
             "signup": (_) => SignUpScreen(),
-            "login": (_) => LoginScreen(),
+            "login": (_) => DoktorLoginScreen(),
             "seotalep": (_) => SeoTalepScreen(),
             "dailydatas": (_) => DailyDatasView(),
             "doktormodels": (_) => DoktorModelsView(),

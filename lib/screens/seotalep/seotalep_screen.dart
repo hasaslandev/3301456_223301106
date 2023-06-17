@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:randevu/Screens/seotalep/components/body.dart';
-import 'package:randevu/models/side_drawer.dart';
 
 
 
@@ -26,7 +25,7 @@ class SeoTalepScreen extends StatelessWidget {
           ),
         ),
       ),
-      drawer: CustomSideDrawer(),
+
       body: Body(),
     );
   }

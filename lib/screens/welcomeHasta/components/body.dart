@@ -1,14 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:randevu/screens/doktorLogin/login_screen.dart';
-import 'package:randevu/screens/Signup/signup_screen.dart';
-import 'package:randevu/screens/Welcome/components/background.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:randevu/Screens/Signup/signup_screen.dart';
 import 'package:randevu/components/rounded_button.dart';
 import 'package:randevu/constants.dart';
+import 'package:randevu/screens/hastaLogin/hasta_login_screen.dart';
 import 'package:randevu/screens/seotalep/seotalep_screen.dart';
 import 'package:randevu/translations/locale_keys.g.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:provider/provider.dart';
+import 'package:randevu/screens/welcomeHasta/components/background.dart';
+
+
 
 class Body extends StatelessWidget {
   changeLocale(context) async {
@@ -61,20 +63,20 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             RoundedButton(
-              text: LocaleKeys.login.tr(),
+              text: LocaleKeys.sicklogin.tr(),
               press: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LoginScreen();
+                      return HastaLoginScreen();
                     },
                   ),
                 );
               },
             ),
             RoundedButton(
-              text: LocaleKeys.singup.tr(),
+              text: LocaleKeys.sicksingup.tr(),
               color: kPrimaryLightColor,
               textColor: Colors.black,
               press: () {

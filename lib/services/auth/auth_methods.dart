@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:randevu/pages/anaSayfa.dart';
 import 'package:randevu/screens/seotalep/seotalep_screen.dart';
 import 'package:randevu/services/general/general_methods.dart';
 
-import '../../Screens/doktorLogin/login_screen.dart';
 import '../../models/doktorModel.dart';
+import '../../screens/doktorLogin/login_screen.dart';
 
 class FlutterFireAuthService {
   final FirebaseAuth _firebaseAuth;
@@ -70,7 +71,7 @@ class FlutterFireAuthService {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return SeoTalepScreen();
+              return HomePage();
             },
           ),
         );
@@ -89,7 +90,7 @@ class FlutterFireAuthService {
     try {
       await _firebaseAuth.signOut().then((value) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (_) => LoginScreen()));
+            context, MaterialPageRoute(builder: (_) => DoktorLoginScreen()));
       });
       showAlert("Good Bye", "Have a nice day!", context);
     } catch (e) {
