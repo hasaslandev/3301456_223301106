@@ -10,10 +10,12 @@ import 'package:randevu/pages/teklif.dart';
 import 'package:randevu/widgets/vucutKitle.dart';
 import 'ilanGoruntuleme.dart';
 
-
+///////
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final String category;
+
+  const HomePage({Key? key, required this.category}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -132,7 +134,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 25),
           //Health Needs
-           DoktorGoruntuleme(),
+          DoktorGoruntuleme(category: widget.category),
           const SizedBox(height: 20),
           Text(
             "Size En Yakın En Popüler Doktorlar",

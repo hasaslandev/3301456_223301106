@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
           ),
           home: DoctorLoginScreen(),
           routes: {
-            "home": (_) => const HomePage(),
+            "home": (_) =>  HomePage(category: 'Tümü',),
             "signup": (_) => SignUpScreen(),
             "login": (_) => DoktorLoginScreen(),
             "seotalep": (_) => SeoTalepScreen(),

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:randevu/pages/anaSayfa.dart';
+import 'package:randevu/widgets/doktorGoruntuleme.dart';
 
 class Kategoriler extends StatelessWidget {
   const Kategoriler({Key? key}) : super(key: key);
@@ -7,12 +9,14 @@ class Kategoriler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<IconList> iconList = [
-      IconList(icon: "assets/images/diyetisyen_1.jpg", ad: "Diyetisyen"),
-      IconList(icon: "assets/images/kalpcerah_2.jpg", ad: "Kalp Cer."),
-      IconList(icon: "assets/images/psikoloji_1.jpg", ad: "Beyin Cer."),
-      IconList(icon: "assets/images/beyincerrah_1.jpg", ad: "Psikiyatri"),
-      IconList(icon: "assets/images/psikoloji_2.jpg", ad: "Psikoloji"),
-      IconList(icon: "assets/images/denntist_1.jpg", ad: "Damar Cer."),
+      IconList(icon: "assets/images/dentist1.png", ad: "Tümü"),
+      IconList(icon: "assets/images/diyetisyen_1.png", ad: "Diyetisyen"),
+      IconList(icon: "assets/images/kalpcerah_2.png", ad: "Kalp Cer."),
+      IconList(icon: "assets/images/psikoloji_1.png", ad: "Beyin Cer."),
+      IconList(icon: "assets/images/beyincerrah1.png", ad: "Psikiyatri"),
+      IconList(icon: "assets/images/psikoloji_2.png", ad: "Psikoloji"),
+      IconList(icon: "assets/images/denntist_1.png", ad: "Damar Cer."),
+
     ];
 
     return SizedBox(
@@ -24,9 +28,26 @@ class Kategoriler extends StatelessWidget {
         },
         itemCount: iconList.length,
         itemBuilder: (BuildContext context, int index) {
-          return Column(
-
-            children: [
+          return GestureDetector(
+            onTap: () {
+              if (iconList[index].ad == "Tümü") {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(category: "Tümü"),
+                  ),
+                );
+              } else {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(category: iconList[index].ad),
+                  ),
+                );
+              }
+            },
+            child: Column(
+              children: [
                 Container(
                   width: 60,
                   height: 60,
@@ -50,6 +71,7 @@ class Kategoriler extends StatelessWidget {
                 const SizedBox(height: 7),
                 Text(iconList[index].ad),
               ],
+            ),
           );
         },
       ),

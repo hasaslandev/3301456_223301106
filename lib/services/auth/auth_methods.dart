@@ -71,7 +71,7 @@ class FlutterFireAuthService {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return HomePage();
+              return HomePage(category: 'Tümü',);
             },
           ),
         );
