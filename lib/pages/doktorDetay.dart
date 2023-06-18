@@ -35,7 +35,7 @@ class DoktorHakkinda extends StatelessWidget {
         children: <Widget>[
           CircleAvatar(
             radius: 65.0,
-            backgroundImage: AssetImage("assets/images/beyincerrah_1.jpg"),
+            backgroundImage: AssetImage(doktor.resim??''),
             backgroundColor: Colors.white,
           ),
           Text(
