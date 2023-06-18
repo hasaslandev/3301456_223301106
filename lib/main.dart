@@ -10,9 +10,9 @@ import 'package:randevu/pages/tasarim.dart';
 import 'package:randevu/providers/doktormodel_provider.dart';
 import 'package:randevu/providers/hastamodel_provider.dart';
 import 'package:randevu/screens/hastaLogin/hasta_login_screen.dart';
-import 'package:randevu/screens/seotalep/seotalep_screen.dart';
 import 'package:randevu/screens/signup/signup_screen.dart';
 import 'package:randevu/services/auth/auth_methods.dart';
+import 'package:randevu/services/auth/hasta_auth_methods.dart';
 import 'package:randevu/services/doctormodel/firestore_doctormodel_service.dart';
 import 'package:randevu/services/hastamodel/firestore_hastamodel_services.dart';
 import 'package:randevu/translations/codegen_loader.g.dart';
@@ -50,6 +50,14 @@ class MyApp extends StatelessWidget {
           StreamProvider(
             create: (context) =>
             context.read<FlutterFireAuthService>().authStateChanges,
+            initialData: null,
+          ),
+          Provider<FlutterFireAuthService2>(
+            create: (_) => FlutterFireAuthService2(FirebaseAuth.instance),
+          ),
+          StreamProvider(
+            create: (context) =>
+            context.read<FlutterFireAuthService2>().authStateChanges,
             initialData: null,
           ),
           Provider<FirestoreDoctormodelService>(
@@ -91,7 +99,7 @@ class MyApp extends StatelessWidget {
             "home": (_) =>  HomePage(category: 'Tümü',),
             "signup": (_) => SignUpScreen(),
             "login": (_) => DoktorLoginScreen(),
-            "seotalep": (_) => SeoTalepScreen(),
+           // "seotalep": (_) => SeoTalepScreen(),
             "dailydatas": (_) => DailyDatasView(),
             "doktormodels": (_) => DoktorModelsView(),
           },

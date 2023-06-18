@@ -1,8 +1,8 @@
 import 'dart:ffi';
 
 class HastaModel {
-  final String? hastaId;
   final String? ad;
+  final String? hastaId;
   final String? soyad;
   final String? TC;
   final String? hastane;

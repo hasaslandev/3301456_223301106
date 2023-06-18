@@ -5,6 +5,7 @@ import 'package:randevu/components/rounded_input_field.dart';
 import 'package:randevu/components/rounded_password_field.dart';
 import 'package:randevu/services/auth/auth_methods.dart';
 import 'package:provider/provider.dart';
+import 'package:randevu/services/auth/hasta_auth_methods.dart';
 
 import '../../Signup/components/background.dart';
 
@@ -46,7 +47,7 @@ class Body extends StatelessWidget {
               text: "Hasta LOGIN",
               press: () {
                 context
-                    .read<FlutterFireAuthService>()
+                    .read<FlutterFireAuthService2>()
                     .logIn(user_email, user_password, context);
               },
             ),
