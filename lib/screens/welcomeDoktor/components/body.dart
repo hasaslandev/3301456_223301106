@@ -6,7 +6,7 @@ import 'package:randevu/Screens/Signup/signup_screen.dart';
 import 'package:randevu/Screens/doktorLogin/login_screen.dart';
 import 'package:randevu/components/rounded_button.dart';
 import 'package:randevu/constants.dart';
-import 'package:randevu/screens/seotalep/seotalep_screen.dart';
+import 'package:randevu/pages/anaSayfa.dart';
 import 'package:randevu/translations/locale_keys.g.dart';
 
 import '../../doktorLogin/components/background.dart';
@@ -27,7 +27,7 @@ class Body extends StatelessWidget {
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
-      return SeoTalepScreen();
+      return HomePage(category: "Tümü");
     }
     Size size = MediaQuery.of(context).size;
     // This size provide us total height and width of our screen

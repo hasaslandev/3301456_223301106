@@ -1,6 +1,8 @@
 import 'package:drop_down_list/drop_down_list.dart';
 import 'package:drop_down_list/model/selected_list_item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Guncelleme extends StatefulWidget {
   const Guncelleme({
@@ -69,6 +71,8 @@ class _DropDownListExampleState extends State<Guncelleme> {
 
   /// This is Main Body widget.
   Widget _mainBody() {
+    final firebaseUser = context.watch<User>();
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(12.0),
       child: Column(
@@ -76,7 +80,7 @@ class _DropDownListExampleState extends State<Guncelleme> {
         children: [
           AppTextField(
             textEditingController: _fullNameTextEditingController,
-            title: "Adınız",
+            title: firebaseUser.email!,
             hint: "Adınızı giriniz",
             isCitySelected: false,
           ),

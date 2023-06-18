@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  const ilanGotuntulenme()),
+          MaterialPageRoute(builder: (context) =>   IlanListesi()),
         ).then((value) => setState(() {}));
         break;
       case 2:
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       case 3:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  const Profil()),
+          MaterialPageRoute(builder: (context) =>   Profil()),
         );
         break;
       default:

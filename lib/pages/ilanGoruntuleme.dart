@@ -1,130 +1,147 @@
 import 'package:flutter/material.dart';
-import 'package:randevu/models/isModel.dart';
+import 'package:randevu/models/telifModel.dart';
+import 'package:randevu/services/teklifmodel/firestore_teklifmodel_servis.dart';
 
-class ilanGotuntulenme extends StatefulWidget {
-  const ilanGotuntulenme({Key? key}) : super(key: key);
+class IlanListesi extends StatefulWidget {
+  const IlanListesi({Key? key}) : super(key: key);
 
   @override
-  _ilanGotuntulenmeState createState() => _ilanGotuntulenmeState();
+  _IlanListesiState createState() => _IlanListesiState();
 }
 
-class _ilanGotuntulenmeState extends State<ilanGotuntulenme> {
+class _IlanListesiState extends State<IlanListesi> {
+  final FirestoreTeklifmodelService _teklifModelService = FirestoreTeklifmodelService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hasta Listesi'),
+        title: Text('İlan Listesi'),
       ),
-      body: ListView.builder(
-        itemCount: isler.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            IsDetayEkrani(isV: isler[index])));
+      body: StreamBuilder<List<TeklifModel>>(
+        stream: _teklifModelService.getTeklifModel(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final teklifler = snapshot.data!;
+            return ListView.builder(
+              itemCount: teklifler.length,
+              itemBuilder: (BuildContext context, int index) {
+                final teklif = teklifler[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TeklifDetayEkrani(teklif: teklif),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 3,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Image.asset(
+                                "teklif.resim",
+                                height: 80.0,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "teklif.baslik",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5.0),
+                                  Text(
+                                    teklif.hastane ?? '',
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                  SizedBox(height: 5.0),
+                                  Text(
+                                    teklif.sehir ??'',
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.calendar_month, color: Colors.grey),
+                                  const SizedBox(height: 5.0),
+                                  const Text(
+                                    'Tarih',
+                                    style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    "12.02.2023",
+                                    style: const TextStyle(fontSize: 16.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Image.asset(
-                          isler[index].resim,
-                          height: 80.0,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              isler[index].baslik,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18.0),
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              isler[index].hastane,
-                              style: TextStyle(fontSize: 16.0),
-                            ),
-                            SizedBox(height: 5.0),
-                            Text(
-                              isler[index].konum,
-                              style: TextStyle(fontSize: 16.0),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.calendar_month, color: Colors.grey),
-                            const SizedBox(height: 5.0),
-                            const Text(
-                              'Tarih',
-                              style:
-                                  TextStyle(fontSize: 12.0, color: Colors.grey),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              isler[index].tarih,
-                              style: const TextStyle(fontSize: 16.0),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Veriler alınırken hata oluştu.'));
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
         },
       ),
     );
   }
 }
 
-class IsDetayEkrani extends StatelessWidget {
-  final Is isV;
+class TeklifDetayEkrani extends StatelessWidget {
+  final TeklifModel teklif;
 
-  const IsDetayEkrani({required this.isV});
+  const TeklifDetayEkrani({required this.teklif});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('İş Detayları'),
+        title: Text('Teklif Detayları'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -132,37 +149,40 @@ class IsDetayEkrani extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
-              isV.resim,
+              "teklif.resim",
               height: 120.0,
             ),
             SizedBox(height: 20.0),
             Text(
-              isV.baslik,
+              "teklif.baslik",
               style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
-                  color: Colors.black87),
+                fontWeight: FontWeight.bold,
+                fontSize: 24.0,
+                color: Colors.black87,
+              ),
             ),
             SizedBox(height: 10.0),
             Text(
-              isV.hastane,
+              teklif.hastane ?? '',
               style: const TextStyle(fontSize: 18.0, color: Colors.grey),
             ),
             SizedBox(height: 10.0),
             Text(
-              isV.konum,
+              teklif.sehir ?? '',
               style: const TextStyle(fontSize: 18.0, color: Colors.grey),
             ),
             SizedBox(height: 20.0),
             const Text(
-              'İlan Detayları:',
+              'Teklif Detayları:',
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                  color: Colors.black87),
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+                color: Colors.black87,
+              ),
             ),
             const SizedBox(height: 10.0),
-             Text(isV.hastalikDetay,
+            Text(
+              "teklif.detay",
               style: TextStyle(fontSize: 16.0),
             ),
           ],
@@ -171,4 +191,3 @@ class IsDetayEkrani extends StatelessWidget {
     );
   }
 }
-
