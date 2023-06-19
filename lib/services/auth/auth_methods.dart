@@ -3,7 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:randevu/models/doktorModel.dart';
 import 'package:randevu/pages/anaSayfa.dart';
+<<<<<<< HEAD
 import 'package:randevu/pages/tasarim.dart';
+=======
+>>>>>>> 4f71c3f44aabc0e0e9f6859f880de09533f08820
 import 'package:randevu/services/general/general_methods.dart';
 import 'package:randevu/pages/anaSayfa.dart';
 

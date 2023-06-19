@@ -45,7 +45,17 @@ class _HomePageState extends State<HomePage> {
       case 2:
         Navigator.push(
           context,
+<<<<<<< HEAD
           MaterialPageRoute(builder: (context) =>   DoktorProfil()),
+=======
+          MaterialPageRoute(builder: (context) =>   Teklif()),
+        );
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>   Profil()),
+>>>>>>> 4f71c3f44aabc0e0e9f6859f880de09533f08820
         );
         break;
       default:
