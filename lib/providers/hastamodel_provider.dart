@@ -20,6 +20,8 @@ class HastaModelProvider with ChangeNotifier {
   int? _yas;
   bool? _cinsiyet;
   String? _sifre;
+  String? _resim;
+  String? _email;
 
   var uuid = Uuid();
 
@@ -33,6 +35,8 @@ class HastaModelProvider with ChangeNotifier {
   int? get yas => _yas;
   bool? get cinsiyet => _cinsiyet;
   String? get sifre => _sifre;
+  String? get resim => _resim;
+  String? get email => _email;
 
   changeName(String value) {
     _ad = value;
@@ -73,6 +77,14 @@ class HastaModelProvider with ChangeNotifier {
     _sifre = value;
     notifyListeners();
   }
+  changeResim(String value) {
+    _resim = value;
+    notifyListeners();
+  }
+  changeEmail(String value) {
+    _email = value;
+    notifyListeners();
+  }
   loadValues(HastaModel hastaModel) {
     _hastaId = hastaModel.hastaId;
     _ad = hastaModel.ad;
@@ -84,6 +96,8 @@ class HastaModelProvider with ChangeNotifier {
     _yas = hastaModel.yas;
     _cinsiyet=hastaModel.cinsiyet;
     _sifre = hastaModel.sifre;
+    _resim = hastaModel.resim;
+    _email = hastaModel.email;
   }
 
   saveHastaModel() {
@@ -98,7 +112,9 @@ class HastaModelProvider with ChangeNotifier {
           sehir: _sehir,
           yas: _yas,
           cinsiyet: cinsiyet,
-          sifre: _sifre
+          sifre: _sifre,
+          resim: _resim,
+          email: _email
       );
       firestoreService.saveHastaModel(newHastaModel);
     } else {
@@ -113,6 +129,8 @@ class HastaModelProvider with ChangeNotifier {
           yas: yas,
           cinsiyet: cinsiyet,
           sifre: sifre,
+          resim: resim,
+          email: email,
       );
       firestoreService.saveHastaModel(updatedHastaModel);
     }

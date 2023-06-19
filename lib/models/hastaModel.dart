@@ -12,11 +12,12 @@ class HastaModel {
   final int? yas;
   final bool? cinsiyet;
   final String? sifre;
+  final String? resim;
 
   HastaModel(
       {
         this.hastaId,this.ad, this.soyad, this.TC, this.hastane,
-        this.telefon,this.sehir,this.yas,this.cinsiyet,this.sifre,this.email
+        this.telefon,this.sehir,this.yas,this.cinsiyet,this.sifre,this.email,this.resim
       });
 
   Map<String, dynamic> toMap() {
@@ -31,7 +32,8 @@ class HastaModel {
       'yas': yas,
       'cinsiyet': cinsiyet,
       'sifre': sifre,
-      'email':email
+      'email':email,
+      'resim':resim
     };
   }
 
@@ -46,5 +48,6 @@ class HastaModel {
         yas = firestore['yas'],
         cinsiyet = firestore['cinsiyet'],
         sifre = firestore['sifre'],
-        email = firestore['email'];
+        email = firestore['email'],
+        resim = firestore['resim'];
 }

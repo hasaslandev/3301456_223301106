@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:randevu/models/doktorModel.dart';
 import 'package:randevu/pages/anaSayfa.dart';
+import 'package:randevu/pages/tasarim.dart';
 import 'package:randevu/services/general/general_methods.dart';
+import 'package:randevu/pages/anaSayfa.dart';
 
-import '../../models/doktorModel.dart';
-import '../../screens/doktorLogin/login_screen.dart';
+
 
 class FlutterFireAuthService {
   final FirebaseAuth _firebaseAuth;
@@ -56,9 +58,11 @@ class FlutterFireAuthService {
     }
   }
 
-  Future<User?> logIn(
-      String email, String password, BuildContext context) async {
+  Future<User?> logIn(String email, String password, BuildContext context) async {
     try {
+      // Kullanıcının giriş yapacağı koleksiyon adı
+      final String userCollection = 'doktorModel';
+
       User? user = (await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -66,18 +70,31 @@ class FlutterFireAuthService {
           .user;
 
       if (user != null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return HomePage(category: 'Tümü',);
-            },
-          ),
-        );
-        return user;
+        // Kullanıcının giriş yaptığı koleksiyonu kontrol etme
+        final QuerySnapshot snapshot = await FirebaseFirestore.instance
+            .collection(userCollection)
+            .where("email", isEqualTo: email)
+            .limit(1)
+            .get();
+
+        if (snapshot.docs.isNotEmpty) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return HomePage(category: 'Tümü');
+              },
+            ),
+          );
+          return user;
+        } else {
+          showAlert("Error!", "Login Failed", context);
+          await _firebaseAuth.signOut(); // Giriş yapılan kullanıcıyı otomatik olarak çıkış yap
+          return null;
+        }
       } else {
         showAlert("Error!", "Login Failed", context);
-        return user;
+        return null;
       }
     } catch (e) {
       showAlert("Error!", e.toString(), context);
@@ -85,11 +102,12 @@ class FlutterFireAuthService {
     }
   }
 
+
   Future<void> logOut(BuildContext context) async {
     try {
       await _firebaseAuth.signOut().then((value) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (_) => DoktorLoginScreen()));
+            context, MaterialPageRoute(builder: (_) => DoctorLoginScreen()));
       });
       showAlert("Good Bye", "Have a nice day!", context);
     } catch (e) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:randevu/screens/adminLogin.dart';
 import 'package:randevu/screens/welcomeDoktor/welcome_screen.dart';
 import 'package:randevu/screens/welcomeHasta/welcome_screen.dart';
-
 
 class DoctorLoginScreen extends StatefulWidget {
   @override
@@ -11,6 +11,7 @@ class DoctorLoginScreen extends StatefulWidget {
 class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
   bool isDoctorLoading = false;
   bool isPatientLoading = false;
+  bool isAdminLoading = false;
 
   void _handleDoctorLogin() {
     setState(() {
@@ -19,12 +20,12 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
 
     showDialog(
       context: context,
-      barrierDismissible: false, // Kullanıcının arka plana dokunmasını engeller
+      barrierDismissible: false,
       builder: (context) {
         return WillPopScope(
-          onWillPop: () async => false, // Geri tuşuna basmayı engeller
+          onWillPop: () async => false,
           child: AlertDialog(
-            backgroundColor: Colors.transparent, // Arkaplanı şeffaf yapar
+            backgroundColor: Colors.transparent,
             content: Center(
               child: CircularProgressIndicator(),
             ),
@@ -33,9 +34,9 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
       },
     );
 
-    // Simüle edilen yükleme süresi
+    // Simulated loading time
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.pop(context); // Yüklenme tamamlandığında ekranı kapat
+      Navigator.pop(context);
       setState(() {
         isDoctorLoading = false;
       });
@@ -45,7 +46,7 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
       );
     });
 
-    // Doktor girişi işlemleri
+    // Perform doctor login operations
   }
 
   void _handlePatientLogin() {
@@ -55,12 +56,12 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
 
     showDialog(
       context: context,
-      barrierDismissible: false, // Kullanıcının arka plana dokunmasını engeller
+      barrierDismissible: false,
       builder: (context) {
         return WillPopScope(
-          onWillPop: () async => false, // Geri tuşuna basmayı engeller
+          onWillPop: () async => false,
           child: AlertDialog(
-            backgroundColor: Colors.transparent, // Arkaplanı şeffaf yapar
+            backgroundColor: Colors.transparent,
             content: Center(
               child: CircularProgressIndicator(),
             ),
@@ -69,9 +70,9 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
       },
     );
 
-    // Simüle edilen yükleme süresi
+    // Simulated loading time
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.pop(context); // Yüklenme tamamlandığında ekranı kapat
+      Navigator.pop(context);
       setState(() {
         isPatientLoading = false;
       });
@@ -81,14 +82,51 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
       );
     });
 
-    // Hasta girişi işlemleri
+    // Perform patient login operations
+  }
+
+  void _handleAdminLogin() {
+    setState(() {
+      isAdminLoading = true;
+    });
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        );
+      },
+    );
+
+    // Simulated loading time
+    Future.delayed(Duration(seconds: 2), () {
+      Navigator.pop(context);
+      setState(() {
+        isAdminLoading = false;
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AdminLoginScreen()),
+      );
+    });
+
+    // Perform admin login operations
   }
 
   Future<bool> _handleWillPop() async {
-    if (isDoctorLoading || isPatientLoading) {
+    if (isDoctorLoading || isPatientLoading || isAdminLoading) {
       setState(() {
         isDoctorLoading = false;
         isPatientLoading = false;
+        isAdminLoading = false;
       });
       return false;
     }
@@ -152,6 +190,24 @@ class _DoctorLoginScreenState extends State<DoctorLoginScreen> {
                 onPressed: _handlePatientLogin,
                 child: Text(
                   'Hasta Girişi',
+                  style: TextStyle(fontSize: 24),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  onPrimary: Colors.blue,
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32),
+                  ),
+                ),
+              ),
+              SizedBox(height: 24),
+              isAdminLoading
+                  ? CircularProgressIndicator()
+                  : ElevatedButton(
+                onPressed: _handleAdminLogin,
+                child: Text(
+                  'Admin Girişi',
                   style: TextStyle(fontSize: 24),
                 ),
                 style: ElevatedButton.styleFrom(

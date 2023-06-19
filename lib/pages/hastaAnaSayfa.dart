@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:randevu/pages/profil.dart';
-import 'package:randevu/pages/profilDoktor.dart';
 import 'package:randevu/services/auth/auth_methods.dart';
 import 'package:randevu/widgets/kategoriler.dart';
 import 'package:randevu/widgets/doktorGoruntuleme.dart';
 import 'package:randevu/pages/bildirimler.dart';
+import 'package:randevu/pages/teklif.dart';
 import 'package:randevu/widgets/vucutKitle.dart';
 import 'ilanGoruntuleme.dart';
 
+///////
 
-
-class HomePage extends StatefulWidget {
+class PatientHomePage extends StatefulWidget {
   final String category;
 
-  const HomePage({Key? key, required this.category}) : super(key: key);
+  const PatientHomePage({Key? key, required this.category}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PatientHomePage> createState() => _PatientHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PatientHomePageState extends State<PatientHomePage> {
   String kullaniciAdi='';
   String sifre='';
   int _selectedIndex = 0;
@@ -45,7 +45,13 @@ class _HomePageState extends State<HomePage> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>   DoktorProfil()),
+          MaterialPageRoute(builder: (context) =>   Teklif()),
+        );
+        break;
+      case 3:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>   Profil()),
         );
         break;
       default:
@@ -107,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(builder: (context) => vucutKitle()),
               );
-              },
+            },
             icon: const Icon(Ionicons.calculator_outline),
           ),
         ],
@@ -132,15 +138,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 25),
           //Health Needs
           DoktorGoruntuleme(category: widget.category),
-          const SizedBox(height: 20),
-          Text(
-            "Size En Yakın En Popüler Doktorlar",
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          Text(
-            "Burası Harita Alanı olacaktır",
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
+
           const SizedBox(height: 15),
           //Harita
           //Nearby Doctors
@@ -153,10 +151,11 @@ class _HomePageState extends State<HomePage> {
         showUnselectedLabels: true,
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Ionicons.home_sharp), label: "Ana Menü",),
-      BottomNavigationBarItem(
+            icon: Icon(Ionicons.home_sharp), label: "Ana Menü",),
+          BottomNavigationBarItem(
               icon: Icon(Ionicons.list_circle), label: "Hasta Listesi"),
-
+          BottomNavigationBarItem(
+              icon: Icon(Ionicons.paper_plane), label: "Teklif Sun"),
           BottomNavigationBarItem(
               icon: Icon(Ionicons.person), label: "Profilim"),
         ],

@@ -2,15 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-
-class Profil extends StatefulWidget {
-  const Profil({Key? key}) : super(key: key);
+class DoktorProfil extends StatefulWidget {
+  const DoktorProfil({Key? key}) : super(key: key);
 
   @override
-  State<Profil> createState() => _ProfilState();
+  State<DoktorProfil> createState() => _DoktorProfilState();
 }
 
-class _ProfilState extends State<Profil> {
+class _DoktorProfilState extends State<DoktorProfil> {
   User? user;
   Map<String, dynamic> userData = {};
 
@@ -24,7 +23,7 @@ class _ProfilState extends State<Profil> {
   Future<void> getUserData() async {
     if (user != null) {
       final snapshot = await FirebaseFirestore.instance
-          .collection('hastaModel')
+          .collection('doktorModel')
           .doc(user!.uid)
           .get();
 
@@ -68,28 +67,22 @@ class AboutDoctor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController adController =
-    TextEditingController(text: userData['ad'] as String?);
-    final TextEditingController soyadController =
-    TextEditingController(text: userData['soyad'] as String?);
-    final TextEditingController hastaneController =
-    TextEditingController(text: userData['hastane'] as String?);
-    final TextEditingController tcController =
-    TextEditingController(text: userData['TC'] as String?);
-    final TextEditingController telefonController =
-    TextEditingController(text: userData['telefon'] as String?);
-    final TextEditingController sehirController =
-    TextEditingController(text: userData['sehir'] as String?);
-    final TextEditingController yasController =
-    TextEditingController(text: userData['yas']?.toString());
-    final TextEditingController cinsiyetController =
-    TextEditingController(text: userData['cinsiyet']?.toString());
-    final TextEditingController sifreController =
-    TextEditingController(text: userData['sifre'] as String?);
+    final TextEditingController nameController =
+    TextEditingController(text: userData['isim'] as String?);
+    final TextEditingController positionController =
+    TextEditingController(text: userData['pozisyon'] as String?);
+    final TextEditingController starController =
+    TextEditingController(text: userData['yildiz']?.toString());
+    final TextEditingController imageController =
+    TextEditingController(text: userData['resim'] as String?);
+    final TextEditingController shortDescController =
+    TextEditingController(text: userData['bKisaAciklama'] as String?);
+    final TextEditingController longDescController =
+    TextEditingController(text: userData['bUzunAciklama'] as String?);
     final TextEditingController emailController =
     TextEditingController(text: userData['email'] as String?);
-    final TextEditingController resimController =
-    TextEditingController(text: userData['resim'] as String?);
+    final TextEditingController passwordController =
+    TextEditingController(text: userData['sifre'] as String?);
 
     return Container(
       padding: const EdgeInsets.all(16.0),
@@ -102,7 +95,7 @@ class AboutDoctor extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           Text(
-            'Sy. ${userData['ad']} ${userData['soyad']}',
+            'Sayın ${userData['isim']}',
             style: const TextStyle(
               color: Colors.black,
               fontSize: 24.0,
@@ -111,7 +104,7 @@ class AboutDoctor extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           const Text(
-            'Profili',
+            'Profil',
             style: TextStyle(
               color: Colors.grey,
               fontSize: 15,
@@ -130,83 +123,56 @@ class AboutDoctor extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           TextFormField(
-            controller: adController,
+            controller: nameController,
             decoration: const InputDecoration(
-              labelText: 'Ad',
+              labelText: 'İsim',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.person),
             ),
           ),
           const SizedBox(height: 16.0),
           TextFormField(
-            controller: soyadController,
+            controller: positionController,
             decoration: const InputDecoration(
-              labelText: 'Soyad',
+              labelText: 'Pozisyon',
               border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.person),
+              prefixIcon: Icon(Icons.work),
             ),
           ),
           const SizedBox(height: 16.0),
           TextFormField(
-            controller: hastaneController,
+            controller: starController,
             decoration: const InputDecoration(
-              labelText: 'Hastane',
+              labelText: 'Yıldız',
               border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.local_hospital),
+              prefixIcon: Icon(Icons.star),
             ),
           ),
           const SizedBox(height: 16.0),
           TextFormField(
-            controller: tcController,
+            controller: imageController,
             decoration: const InputDecoration(
-              labelText: 'TC',
+              labelText: 'Resim',
               border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.confirmation_number),
+              prefixIcon: Icon(Icons.image),
             ),
           ),
           const SizedBox(height: 16.0),
           TextFormField(
-            controller: telefonController,
+            controller: shortDescController,
             decoration: const InputDecoration(
-              labelText: 'Telefon',
+              labelText: 'Kısa Açıklama',
               border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.phone),
+              prefixIcon: Icon(Icons.description),
             ),
           ),
           const SizedBox(height: 16.0),
           TextFormField(
-            controller: sehirController,
+            controller: longDescController,
             decoration: const InputDecoration(
-              labelText: 'Şehir',
+              labelText: 'Uzun Açıklama',
               border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.location_city),
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          TextFormField(
-            controller: yasController,
-            decoration: const InputDecoration(
-              labelText: 'Yaş',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.cake),
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          TextFormField(
-            controller: cinsiyetController,
-            decoration: const InputDecoration(
-              labelText: 'Cinsiyet',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.person),
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          TextFormField(
-            controller: sifreController,
-            decoration: const InputDecoration(
-              labelText: 'Şifre',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.lock),
+              prefixIcon: Icon(Icons.description),
             ),
           ),
           const SizedBox(height: 16.0),
@@ -216,6 +182,15 @@ class AboutDoctor extends StatelessWidget {
               labelText: 'Email',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.email),
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          TextFormField(
+            controller: passwordController,
+            decoration: const InputDecoration(
+              labelText: 'Şifre',
+              border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.lock),
             ),
           ),
           const SizedBox(height: 16.0),
