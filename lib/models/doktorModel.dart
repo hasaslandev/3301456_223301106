@@ -9,12 +9,13 @@ class DoktorModel {
   final String? bUzunAciklama;
   final String? email;
   final String? sifre;
+  final String? telefon;
 
   DoktorModel(
       {
         this.doctorId,this.isim, this.pozisyon, this.yildiz,
         this.toplamGoruntulenme, this.resim,this.bKisaAciklama,this.bUzunAciklama,
-        this.email,this.sifre
+        this.email,this.sifre,this.telefon
       });
 
   Map<String, dynamic> toMap() {
@@ -29,6 +30,7 @@ class DoktorModel {
       'bUzunAciklama': bUzunAciklama,
       'email': email,
       'sifre': sifre,
+      'telefon': telefon,
     };
   }
 
@@ -42,5 +44,6 @@ class DoktorModel {
         bKisaAciklama = firestore['bKisaAciklama'],
         bUzunAciklama = firestore['bUzunAciklama'],
         email = firestore['email'],
-        sifre = firestore['sifre'];
+        sifre = firestore['sifre'],
+        telefon = firestore['telefon'];
 }

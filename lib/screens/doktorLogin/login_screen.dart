@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:randevu/Screens/doktorLogin/components/body.dart';
-import 'package:randevu/models/side_drawer.dart';
 
 class DoktorLoginScreen extends StatelessWidget {
   @override

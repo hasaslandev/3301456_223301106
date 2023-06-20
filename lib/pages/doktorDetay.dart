@@ -10,13 +10,178 @@ class DoktorDetay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            DoktorHakkinda(doktor: doktor),
-            DetailBody(doktor: doktor),
+            Stack(
+              children: <Widget>[
+                Container(
+                  height: 300,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(doktor.resim ?? ''),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 20,
+                  left: 20,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 16),
+                  Text(
+                    doktor.isim ?? '',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    doktor.pozisyon ?? '',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  Text(
+                    'Hakkında',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      doktor.bKisaAciklama ?? '',
+                      style: TextStyle(
+                        fontSize: 16,
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildInfoCard(
+                        context,
+                        label: 'Tedavi Edilen Hasta Sayısı',
+                        value: doktor.toplamGoruntulenme.toString(),
+                      ),
+                      _buildInfoCard(
+                        context,
+                        label: 'Yıldız Sayısı',
+                        value: doktor.yildiz.toString(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24),
+                  Text(
+                    'Uzun Açıklama',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      doktor.bUzunAciklama ?? '',
+                      style: TextStyle(
+                        fontSize: 16,
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildInfoCard(BuildContext context, {required String label, required String value}) {
+    return Container(
+      width: (MediaQuery.of(context).size.width - 48) / 2,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -96,76 +261,30 @@ class DetailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20),
-      margin: EdgeInsets.only(bottom: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      margin: EdgeInsets.all(20),
+      child: ListView(
         children: <Widget>[
-          DoctorInfo(doktor: doktor),
-          Text("Burası harita alanı olacaktır."),
+          DoktorHakkinda(doktor: doktor),
+          SizedBox(height: 20),
+          DoktorDetay(doktor: doktor),
         ],
       ),
     );
   }
 }
 
-class DoctorInfo extends StatelessWidget {
+class DoktorDetaySayfa extends StatelessWidget {
   final DoktorModel doktor;
 
-  DoctorInfo({required this.doktor});
+  DoktorDetaySayfa({required this.doktor});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        InfoCard(label: 'Tedavi Edilen Hasta Sayısı', value: doktor.yildiz.toString()),
-        SizedBox(width: 15),
-        InfoCard(label: 'Tecrübe Yılı', value: doktor.yildiz.toString()),
-        SizedBox(width: 15),
-        InfoCard(label: 'Yıldız Sayısı', value: doktor.yildiz.toString()),
-      ],
-    );
-  }
-}
-
-class InfoCard extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const InfoCard({Key? key, required this.label, required this.value}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.blue,
-        ),
-        padding: const EdgeInsets.symmetric(
-          vertical: 30,
-          horizontal: 10,
-        ),
-        child: Column(
-          children: <Widget>[
-            Text(
-              value,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 5),
-            Text(
-              label,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Doktor Detay'),
       ),
+      body: DetailBody(doktor: doktor),
     );
   }
 }

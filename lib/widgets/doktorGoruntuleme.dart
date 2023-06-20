@@ -10,7 +10,7 @@ class DoktorGoruntuleme extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final doktorlar = context.watch<List<DoktorModel>>();
+    final doktorlar = context.watch<List<DoktorModel>?>();
 
     if (doktorlar == null) {
       // Veriler henüz yüklenmediyse, yüklenme görselini veya mesajını gösterin
@@ -55,7 +55,7 @@ class DoktorGoruntuleme extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: GestureDetector(
-            onTap: () {
+            onDoubleTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -125,4 +125,3 @@ class DoktorGoruntuleme extends StatelessWidget {
     );
   }
 }
-

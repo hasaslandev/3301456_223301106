@@ -11,7 +11,7 @@ import 'package:randevu/pages/teklif.dart';
 import 'package:randevu/widgets/vucutKitle.dart';
 import 'ilanGoruntuleme.dart';
 
-///////
+
 
 class PatientHomePage extends StatefulWidget {
   final String category;

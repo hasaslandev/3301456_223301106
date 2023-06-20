@@ -132,15 +132,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 25),
           //Health Needs
           DoktorGoruntuleme(category: widget.category),
-          const SizedBox(height: 20),
-          Text(
-            "Size En Yakın En Popüler Doktorlar",
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          Text(
-            "Burası Harita Alanı olacaktır",
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
+
           const SizedBox(height: 15),
           //Harita
           //Nearby Doctors

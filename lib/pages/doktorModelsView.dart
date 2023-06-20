@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:randevu/models/doktorModel.dart';
-import 'package:randevu/models/side_drawer.dart';
 import 'package:randevu/pages/editDoctorModelsView.dart';
 
 class DoktorModelsView extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:randevu/Screens/Signup/components/body.dart';
-import 'package:randevu/models/side_drawer.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override

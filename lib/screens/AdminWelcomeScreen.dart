@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:randevu/pages/editBildirimView.dart';
 import 'package:randevu/screens/doktorEdit.dart';
 import 'package:randevu/screens/hastaEdit.dart';
 
@@ -94,7 +95,10 @@ class AdminWelcomeScreen extends StatelessWidget {
             SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EditBildirimView()),
+                );
               },
               child: Text(
                 'Bildirimler',

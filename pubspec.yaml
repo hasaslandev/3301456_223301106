@@ -55,7 +55,14 @@ dependencies:
   flutter_svg:
   uuid:
   flutterfire_cli:
+  url_launcher: ^6.1.11
+  pdf:
+  path_provider: ^2.0.15
+  open_filex: ^4.3.2
 
+
+  sqflite:
+  path:
 
   #google_sign_in: ^6.1.0
   #google_maps_flutter: ^2.2.5

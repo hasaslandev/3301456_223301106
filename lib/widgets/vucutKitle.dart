@@ -1,76 +1,118 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'package:randevu/models/side_drawer.dart';
-import 'package:randevu/pages/editHastaModelsView.dart';
-
-import '../models/hastaModel.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart'; // Import url_launcher
 
 class vucutKitle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final hastamodel = context.watch<List<HastaModel>>();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
+  Future<List<Map<String, dynamic>>> _getDoktorListesi() async {
+    QuerySnapshot snapshot = await _firestore.collection('doktorModel').get();
+    List<Map<String, dynamic>> doktorlar = snapshot.docs.map((doc) {
+      Map<String, dynamic> doktor = doc.data() as Map<String, dynamic>;
+      return {
+        'isim': doktor['isim'],
+        'telefon': doktor['telefon'],
+        'pozisyon': doktor['pozisyon'],
+      };
+    }).toList();
+    return doktorlar;
+  }
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('Hasta Models'),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.blue,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.add,
-              size: 30.0,
+  Future<void> _generatePDF(BuildContext context) async {
+    final pdf = pw.Document();
+
+    final doktorlar = await _getDoktorListesi();
+
+    pdf.addPage(
+      pw.MultiPage(
+        build: (pw.Context context) {
+          return [
+            pw.Table.fromTextArray(
+              headers: ['isim', 'telefon', 'pozisyon'],
+              data: doktorlar.map((doktor) {
+                return [doktor['isim'], doktor['telefon'], doktor['pozisyon']];
+              }).toList(),
+              border: pw.TableBorder.all(),
+
+              cellAlignment: pw.Alignment.center,
             ),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditHastaModelView()));
-            },
-          )
-        ],
-        leading: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Builder(
-            builder: (context) => IconButton(
-              icon: Icon(
-                Icons.menu_rounded,
-                size: 40,
-                color: Colors.black,
-              ),
-              color: Colors.black,
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
-        ),
+          ];
+        },
       ),
+    );
 
-      body: ListView.builder(
-        itemCount: hastamodel.length,
-        itemBuilder: (context, index) {
-          final isim = hastamodel[index].ad?? '';
-          final soyad = hastamodel[index].soyad ?? '';
-          final TC = hastamodel[index].TC ?? '';
+    final appDocDir = await getApplicationDocumentsDirectory();
+    final filePath = '${appDocDir.path}/doktor_listesi.pdf';
+    final File file = File(filePath);
+    await file.writeAsBytes(await pdf.save());
 
-          return ListTile(
-            leading: const Icon(
-              Icons.beach_access,
-              color: Colors.blue,
-              size: 36.0,
+    // Dosya yolunu konsola yazdır
+    print('Dosya Yolu: $filePath');
+
+    // İndirme işlemi tamamlandığında kullanıcıya bir geri bildirim verin
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('PDF İndirme Tamamlandı'),
+          content: Text('PDF dosyası oluşturuldu: $filePath'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Tamam'),
             ),
-            title: Text(isim!),
-            subtitle: Text(soyad!),
-            trailing: Text(TC!),
-            isThreeLine: true,
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditHastaModelView(hastamodel[index])));
-            },
+          ],
+        );
+      },
+    );
+
+    // Dosyayı açmak için
+    final result = await launch(filePath);
+
+    if (result != null) {
+      // Hata durumunda kullanıcıya bir geri bildirim verebilirsiniz
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Dosya Açma Hatası'),
+            content: Text('Dosya açılamadı: $filePath'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Tamam'),
+              ),
+            ],
           );
         },
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Doktor Listesi PDF'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            _generatePDF(context);
+          },
+          child: Text('PDF Oluştur ve indir'),
+        ),
       ),
     );
   }
 }
-

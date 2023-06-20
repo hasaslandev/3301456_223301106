@@ -1,23 +1,24 @@
 class BildirimModel {
-  final String? BildirimId;
+  final int? id;
   final String? TC;
-  final bool? okundu;
+  final int? fiyat;
   BildirimModel(
       {
-        this.BildirimId,this.TC,this.okundu
+        required this.id,required this.TC,required this.fiyat
       });
 
   Map<String, dynamic> toMap() {
     return {
-      'BildirimId': BildirimId,
+      'id': id,
       'TC': TC,
-      'okundu': okundu,
+      'fiyat': fiyat,
 
     };
   }
 
-  BildirimModel.fromFirestore(Map<String, dynamic> firestore)
-      : BildirimId = firestore['BildirimId'],
-        TC = firestore['TC'],
-        okundu = firestore['okundu'];
+  @override
+  String toString() {
+    return 'BildirimModel{id: $id, TC: $TC, fiyat: $fiyat}';
+  }
 }
+

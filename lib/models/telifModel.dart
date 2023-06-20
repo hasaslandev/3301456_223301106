@@ -7,10 +7,13 @@ class TeklifModel {
   final String? hastalik;
   final int? fiyat;
   final bool? isErkek;
+  final String? resim;
+  final String? tarih;
+  final String? aciklama;
   TeklifModel(
       {
         this.teklifId,this.adSoyad,this.hastane,this.iletisim,this.sehir,this.hastalik,
-        this.fiyat,this.isErkek
+        this.fiyat,this.isErkek,this.resim,this.tarih,this.aciklama
       });
 
   Map<String, dynamic> toMap() {
@@ -23,6 +26,9 @@ class TeklifModel {
       'hastalik': hastalik,
       'fiyat': fiyat,
       'isErkek': isErkek,
+      'resim': resim,
+      'tarih': tarih,
+      'aciklama': aciklama,
     };
   }
 
@@ -34,5 +40,8 @@ class TeklifModel {
         sehir = firestore['sehir'],
         hastalik = firestore['hastalik'],
         fiyat = firestore['fiyat'],
-        isErkek = firestore['isErkek'];
+        isErkek = firestore['isErkek'],
+        resim = firestore['resim'],
+        tarih = firestore['tarih'],
+        aciklama = firestore['aciklama'];
 }

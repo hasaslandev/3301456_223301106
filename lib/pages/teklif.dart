@@ -68,13 +68,12 @@ class _TeklifState extends State<Teklif> {
   }
 
 
-
   final List<String> _listOfDiseases = [
-    "Hastalık 1",
-    "Hastalık 2",
-    "Hastalık 3",
-    "Hastalık 4",
-    "Hastalık 5",
+    "Grip Ameliyatı",
+    "Kalp Ameliyatı",
+    "Gögüs Çatlaması Ameliyatı",
+    "Diz kapağı Ameliyatı",
+    "Kanser Ameliyatı",
   ];
 
   String? _selectedHospital;
