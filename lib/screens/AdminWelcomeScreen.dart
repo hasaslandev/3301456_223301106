@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:randevu/pages/dailydatasView.dart';
 import 'package:randevu/pages/editBildirimView.dart';
 import 'package:randevu/screens/doktorEdit.dart';
 import 'package:randevu/screens/hastaEdit.dart';
@@ -101,7 +102,29 @@ class AdminWelcomeScreen extends StatelessWidget {
                 );
               },
               child: Text(
-                'Bildirimler',
+                'Bildirimler Edit',
+                style: TextStyle(fontSize: 24),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.blue,
+                padding: EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32),
+                ),
+              ),
+            ),
+            SizedBox(height: 24),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DailyDatasView()),
+                );
+              },
+              child: Text(
+                'Grafikler',
                 style: TextStyle(fontSize: 24),
               ),
               style: ElevatedButton.styleFrom(

@@ -39,20 +39,20 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
 
             RoundedInputField(
-              hintText: "Your Name",
+              hintText: "Adınız",
               onChanged: (value) {
                 nameController.text = value;
               },
             ),
 
             RoundedInputField(
-              hintText: "Your SurName",
+              hintText: "Soyadınız",
               onChanged: (value) {
                 surnameController.text = value;
               },
             ),
             RoundedInputField(
-              hintText: "Your Email",
+              hintText: "Email Adresiniz",
               onChanged: (value) {
                 emailController.text = value;
               },

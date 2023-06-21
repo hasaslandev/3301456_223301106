@@ -28,7 +28,7 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             Image.asset(
-              "assets/images/risetime_logo.png",
+              "assets/images/kalpcerah_2.png",
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.03),

@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                 MaterialPageRoute(builder: (context) => vucutKitle()),
               );
               },
-            icon: const Icon(Ionicons.calculator_outline),
+            icon: const Icon(Ionicons.newspaper),
           ),
         ],
       ),

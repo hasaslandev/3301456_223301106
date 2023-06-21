@@ -41,8 +41,8 @@ class HastaEdit extends StatelessWidget {
 
           return ListTile(
             leading: const Icon(
-              Icons.beach_access,
-              color: Colors.blue,
+              Icons.edit,
+              color: Colors.redAccent,
               size: 36.0,
             ),
             title: Text(isim!),

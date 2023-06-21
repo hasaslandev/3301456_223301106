@@ -17,16 +17,27 @@ class EditDoctorModelView extends StatefulWidget {
 
 class _EditDoctorModelView extends State<EditDoctorModelView> {
   final nameController = TextEditingController();
-  final loginnameController = TextEditingController();
-  final loginpasswordController = TextEditingController();
-  final webController = TextEditingController();
+  final pozisyonController = TextEditingController();
+  final yildizController = TextEditingController();
+  final toplamGoruntulenmeController = TextEditingController();
+  final resimController = TextEditingController();
+  final bKisaAciklamaController = TextEditingController();
+  final bUzunAciklamaController = TextEditingController();
+  final emailController = TextEditingController();
+  final sifreController = TextEditingController();
+  final telefonController = TextEditingController();
 
   @override
   void dispose() {
     nameController.dispose();
-    loginnameController.dispose();
-    loginpasswordController.dispose();
-    webController.dispose();
+    pozisyonController.dispose();
+    yildizController.dispose();
+    resimController.dispose();
+    bKisaAciklamaController.dispose();
+    bUzunAciklamaController.dispose();
+    emailController.dispose();
+    sifreController.dispose();
+    telefonController.dispose();
     super.dispose();
   }
 
@@ -35,9 +46,14 @@ class _EditDoctorModelView extends State<EditDoctorModelView> {
     if (widget.doktorModel == null) {
       //New Record
       nameController.text = "";
-      loginnameController.text = "";
-      loginpasswordController.text = "";
-      webController.text = "";
+      pozisyonController.text = "";
+      yildizController.text = "";
+      resimController.text = "";
+      bKisaAciklamaController.text = "";
+      bUzunAciklamaController.text = "";
+      emailController.text = "";
+      sifreController.text = "";
+      telefonController.text = "";
       Future.delayed(Duration.zero, () {
         final doktormodelProvider =
         Provider.of<DoktorModelProvider>(context, listen: false);
@@ -46,9 +62,14 @@ class _EditDoctorModelView extends State<EditDoctorModelView> {
     } else {
       //Controller Update
       nameController.text = widget.doktorModel!.isim!;
-      loginnameController.text = widget.doktorModel!.pozisyon!;
-      loginpasswordController.text = widget.doktorModel!.bKisaAciklama!;
-      webController.text = widget.doktorModel!.resim!;
+      pozisyonController.text = widget.doktorModel!.pozisyon!;
+      yildizController.text = widget.doktorModel!.yildiz!.toString();
+      resimController.text = widget.doktorModel!.resim!;
+      bKisaAciklamaController.text= widget.doktorModel!.bKisaAciklama!;
+      bUzunAciklamaController.text =widget.doktorModel!.bUzunAciklama!;
+      emailController.text =widget.doktorModel!.email!;
+      sifreController.text =widget.doktorModel!.sifre!;
+      telefonController.text= widget.doktorModel!.telefon!;
       //State Update
       Future.delayed(Duration.zero, () {
         final doktormodelsProvider =
@@ -67,46 +88,86 @@ class _EditDoctorModelView extends State<EditDoctorModelView> {
     return Scaffold(
       appBar: AppBar(
           title: (widget.doktorModel != null)
-              ? Text('Edit Doktor Firm')
-              : Text('Add Doktor Firm')),
+              ? Text('Doktor Düzenleme')
+              : Text('Doktor EKle')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: <Widget>[
             TextField(
               controller: nameController,
-              decoration: InputDecoration(hintText: 'Doktor Firm Name'),
+              decoration: InputDecoration(hintText: 'Doktor Adı Soyadı'),
               onChanged: (value) {
                 doktormodelsProvider.changeName(value);
               },
             ),
             TextField(
-              controller: loginnameController,
-              decoration: InputDecoration(hintText: 'Pozisyon Firm Login Name'),
+              controller: pozisyonController,
+              decoration: InputDecoration(hintText: 'Doktor Pozisyonu'),
               onChanged: (value) {
                 doktormodelsProvider.changePozisyon(value);
               },
             ),
             TextField(
-              controller: loginpasswordController,
+              controller: yildizController,
               decoration:
-              InputDecoration(hintText: 'Kısa AÇıklama Firm Login Password'),
+              InputDecoration(hintText: 'Doktorun yıldızı(Max 5 olmalıdır)'),
+              onChanged: (value) {
+                doktormodelsProvider.changeYildiz(int.parse(value));
+              },
+            ),
+            TextField(
+              controller: resimController,
+              decoration: InputDecoration(hintText: 'Resim yolu'),
+              onChanged: (value) {
+                doktormodelsProvider.changeResim(value);
+              },
+            ),
+            TextField(
+              controller: bKisaAciklamaController,
+              decoration:
+              InputDecoration(hintText: 'Kısa Açıklama'),
               onChanged: (value) {
                 doktormodelsProvider.changeKisaAciklama(value);
               },
             ),
             TextField(
-              controller: webController,
-              decoration: InputDecoration(hintText: 'Resim Firm Web'),
+              controller: bUzunAciklamaController,
+              decoration:
+              InputDecoration(hintText: 'Uzun Aciklama'),
               onChanged: (value) {
-                doktormodelsProvider.changeResim(value);
+                doktormodelsProvider.changeUzunAciklama(value);
+              },
+            ),
+            TextField(
+              controller: emailController,
+              decoration:
+              InputDecoration(hintText: 'Email'),
+              onChanged: (value) {
+                doktormodelsProvider.changeEmail(value);
+              },
+            ),
+            TextField(
+              controller: sifreController,
+              decoration:
+              InputDecoration(hintText: 'Sifre'),
+              onChanged: (value) {
+                doktormodelsProvider.changeSifre(value);
+              },
+            ),
+            TextField(
+              controller: telefonController,
+              decoration:
+              InputDecoration(hintText: 'Telefon'),
+              onChanged: (value) {
+                doktormodelsProvider.changeTelefon(value);
               },
             ),
             SizedBox(
               height: 20.0,
             ),
             ElevatedButton(
-              child: Text('Save'),
+              child: Text('Kaydet'),
               onPressed: () {
                 doktormodelsProvider.saveDoktorModel();
                 Navigator.of(context).pop();
@@ -114,7 +175,7 @@ class _EditDoctorModelView extends State<EditDoctorModelView> {
             ),
             (widget.doktorModel != null)
                 ? ElevatedButton(
-              child: Text('Delete'),
+              child: Text('Sil'),
               onPressed: () {
                 doktormodelsProvider.removeDoktorModel(widget.doktorModel!.doctorId!);
                 Navigator.of(context).pop();

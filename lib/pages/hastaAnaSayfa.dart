@@ -156,8 +156,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
               icon: Icon(Ionicons.list_circle), label: "Hasta Listesi"),
           BottomNavigationBarItem(
               icon: Icon(Ionicons.paper_plane), label: "Teklif Sun"),
-          BottomNavigationBarItem(
-              icon: Icon(Ionicons.person), label: "Profilim"),
+
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],

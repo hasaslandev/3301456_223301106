@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,7 +40,6 @@ class vucutKitle extends StatelessWidget {
                 return [doktor['isim'], doktor['telefon'], doktor['pozisyon']];
               }).toList(),
               border: pw.TableBorder.all(),
-
               cellAlignment: pw.Alignment.center,
             ),
           ];
@@ -75,9 +75,9 @@ class vucutKitle extends StatelessWidget {
     );
 
     // Dosyayı açmak için
-    final result = await launch(filePath);
+    final result = await OpenFilex.open(filePath);
 
-    if (result != null) {
+    if (result.type == ResultType.error) {
       // Hata durumunda kullanıcıya bir geri bildirim verebilirsiniz
       showDialog(
         context: context,
@@ -103,14 +103,27 @@ class vucutKitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Doktor Listesi PDF'),
+        title: Text('Firebaseden pdfe '),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            _generatePDF(context);
-          },
-          child: Text('PDF Oluştur ve indir'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                _generatePDF(context);
+              },
+              child: Text('PDF Oluştur ve indir'),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                // Dosyayı açmak için
+                OpenFilex.open("filePath");
+              },
+              child: Text('PDF Dosyasını Aç'),
+            ),
+          ],
         ),
       ),
     );

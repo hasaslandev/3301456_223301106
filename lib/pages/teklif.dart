@@ -40,7 +40,7 @@ class _TeklifState extends State<Teklif> {
 
         setState(() {
           _listOfHospital = hospitals;
-          _selectedHospital = hospitals.isNotEmpty ? hospitals[0] : null; // Güncellenen kod
+          _selectedHospital = hospitals.isNotEmpty ? hospitals[0] : null;
         });
       } else {
         throw Exception('API isteği başarısız oldu. Hata kodu: ${response.statusCode}');
@@ -56,7 +56,7 @@ class _TeklifState extends State<Teklif> {
     try {
       List<String> cities = await fetchIlceAdlari();
 
-      // Convert city names to UTF-8 encoding
+
       List<String> utf8Cities = cities.map((city) => utf8.decode(city.runes.toList())).toList();
 
       setState(() {
@@ -186,8 +186,6 @@ class _TeklifState extends State<Teklif> {
               //...
             ),
 
-//...
-
 
             SizedBox(height: 16.0),
             Text(
@@ -198,26 +196,42 @@ class _TeklifState extends State<Teklif> {
               ),
             ),
             SizedBox(height: 8.0),
-            DropdownButtonFormField<String>(
-              value: _selectedHospital,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedHospital = newValue;
-                });
-              },
-              items: _listOfHospital.map((String hospital) {
-                return DropdownMenuItem<String>(
-                  value: hospital,
-                  child: Text(hospital),
+            TextFormField(
+              controller: TextEditingController(text: _selectedHospital),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Hastaneler'),
+                      content: Container(
+                        width: double.maxFinite,
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: _listOfHospital.map((String hospital) {
+                            return ListTile(
+                              title: Text(hospital),
+                              onTap: () {
+                                setState(() {
+                                  _selectedHospital = hospital;
+                                });
+                                Navigator.pop(context);
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    );
+                  },
                 );
-              }).toList(),
+              },
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Lütfen hastane seçin.";
+                  return 'Lütfen hastane seçin.';
                 }
                 return null;
               },
@@ -330,7 +344,6 @@ class _TeklifState extends State<Teklif> {
         return;
       }
 
-      // Check if the phone number already exists in the database
       bool phoneNumberExists = await _firestoreService.checkPhoneNumberExists(phoneNumber);
       if (phoneNumberExists) {
         showDialog(
@@ -353,10 +366,8 @@ class _TeklifState extends State<Teklif> {
         return;
       }
 
-      // Generate a unique ID for the teklifModel
       String teklifId = Uuid().v4();
 
-      // Create a new instance of TeklifModel
       TeklifModel teklifModel = TeklifModel(
         teklifId: teklifId,
         adSoyad: _adSoyadController.text,
@@ -368,7 +379,6 @@ class _TeklifState extends State<Teklif> {
         isErkek: true,
       );
 
-      // Save the teklifModel using FirestoreTeklifmodelService
       _firestoreService.saveTeklifModel(teklifModel).then((_) {
         // Successful save operation
         showDialog(
@@ -389,7 +399,6 @@ class _TeklifState extends State<Teklif> {
           },
         );
       }).catchError((error) {
-        // Error occurred during save operation
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -412,8 +421,3 @@ class _TeklifState extends State<Teklif> {
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: Teklif(),
-  ));
-}
