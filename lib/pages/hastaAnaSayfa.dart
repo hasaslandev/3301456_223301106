@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
+import 'package:randevu/api/eczaneApi.dart';
 import 'package:randevu/pages/profil.dart';
 import 'package:randevu/services/auth/auth_methods.dart';
 import 'package:randevu/widgets/kategoriler.dart';
@@ -99,6 +100,15 @@ class _PatientHomePageState extends State<PatientHomePage> {
               );
             },
             icon: const Icon(Ionicons.notifications_outline),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EczaneApi()),
+              );
+            },
+            icon: const Icon(Ionicons.medical),
           ),
           IconButton(
             onPressed: () {
